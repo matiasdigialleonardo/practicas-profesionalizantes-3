@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="styles.css">
+    <title>Selección de opciones</title>
+</head>
+<body style="background-color: grey;">
+
+
+</body>
+
+<script>
+
+let cuentas = [
+{
+	"id": 1,
+	"username": "IronMan92",
+	"saldo": "$100.50"
+	},
+	{
+	"id": 2,
+	"username": "LunaGamer77",
+	"saldo": "$75.25"
+	},
+	{
+	"id": 3,
+	"username": "ShadowNinja123",
+	"saldo": "$200.00"
+	},
+	{
+	"id": 4,
+	"username": "DragonMasterX",
+	"saldo": "$50.75"
+	},
+	{
+	"id": 5,
+	"username": "SpaceExplorer99",
+	"saldo": "$300.30"
+	},
+	{
+	"id": 6,
+	"username": "PixelWizard",
+	"saldo": "$150.00"
+	},
+	{
+	"id": 7,
+	"username": "MysterySeeker",
+	"saldo": "$80.60"
+	},
+	{
+	"id": 8,
+	"username": "EternalDreamer",
+	"saldo": "$400.20"
+	},
+	{
+	"id": 9,
+	"username": "SunnySideUp",
+	"saldo": "$10.00"
+	},
+	{
+	"id": 10,
+	"username": "NeonPhantom",
+	"saldo": "$50.00"
+	},
+	{
+	"id": 11,
+	"username": "CyberPunk99",
+	"saldo": "$125.75"
+	},
+	{
+	"id": 12,
+	"username": "GalacticTraveler",
+	"saldo": "$275.50"
+	},
+	{
+	"id": 13,
+	"username": "TechWizard",
+	"saldo": "$90.25"
+	},
+	{
+	"id": 14,
+	"username": "MysticMage",
+	"saldo": "$180.00"
+	},
+	{
+	"id": 15,
+	"username": "SamuraiWarrior",
+	"saldo": "$200.60"
+	},
+	{
+	"id": 16,
+	"username": "StealthyAssassin",
+	"saldo": "$450.20"
+	},
+	{
+	"id": 17,
+	"username": "CosmicExplorer",
+	"saldo": "$15.00"
+	},
+	{
+	"id": 18,
+	"username": "DreamCatcher",
+	"saldo": "$75.00"
+	},
+	{
+	"id": 19,
+	"username": "ArcaneSorcerer",
+	"saldo": "$300.00"
+	},
+	{
+	"id": 20,
+	"username": "StarStrider",
+	"saldo": "$500.00"
+	},
+	{
+	"id": 21,
+	"username": "NeoGamer",
+	"saldo": "$110.00"
+	},
+	{
+	"id": 22,
+	"username": "TechNinja",
+	"saldo": "$95.50"
+	},
+	{
+	"id": 23,
+	"username": "GalacticHero",
+	"saldo": "$700.75"
+	},
+	{
+	"id": 24,
+	"username": "DreamWalker",
+	"saldo": "$250.25"
+	},
+	{
+	"id": 25,
+	"username": "CyberMage",
+	"saldo": "$180.80"
+	},
+	{
+	"id": 26,
+	"username": "SpacePilot",
+	"saldo": "$600.00"
+	},
+	{
+	"id": 27,
+	"username": "TechSavvy",
+	"saldo": "$50.50"
+	},
+	{
+	"id": 28,
+	"username": "VirtualWarrior",
+	"saldo": "$175.00"
+	},
+	{
+	"id": 29,
+	"username": "DigitalNomad",
+	"saldo": "$125.20"
+	},
+	{
+	"id": 30,
+	"username": "PixelPioneer",
+	"saldo": "$300.40"
+	}
+]
+
+const API_BASE_URL = "http://localhost:3000/usuarios"
+
+function removeAllChildNodes(parent) {
+	while (parent.firstChild) {
+		parent.removeChild(parent.firstChild);
+	}
+}
+
+class CustomSelector extends HTMLElement
+{
+	constructor()
+	{
+		super();
+		
+		//Inicializar cosas que serán requeridas al momento de la visualización
+		//Hasta acá, el elemento no está renderizado. Por lo tanto, tampoco recibe eventos.
+		
+		this.all_data = cuentas;
+
+        const columnNames = ['ID', 'Username', 'Saldo'];
+
+		this._title = document.createElement('h1');
+		this._title.innerText = 'Gestion de cuentas';
+
+		this._navbarTitle = document.createElement('h2');
+		this._navbarTitle.innerText = 'Seleccione una acción';
+
+        this._navbar = document.createElement('navbar');
+
+        this._listBtn = document.createElement('button');
+		this._createBtn = document.createElement('button');
+		this._editBtn = document.createElement('button');
+		this._deleteBtn = document.createElement('button');
+		this._showMoreSelect = document.createElement('select');
+
+		this._listBtn.innerText = "Listar";
+		this._createBtn.innerText = "Crear";
+		this._editBtn.innerText = "Editar";
+		this._deleteBtn.innerText = "Borrar";
+		this._defaultOption = new Option("...")
+		this.imagineOption = new Option("Autodestruccion inminente");
+
+		this._showMoreSelect.add(this._defaultOption);
+		this._showMoreSelect.add(this.imagineOption);
+
+		this._navbar.appendChild(this._listBtn);
+		this._navbar.appendChild(this._createBtn);
+		this._navbar.appendChild(this._editBtn);
+		this._navbar.appendChild(this._deleteBtn);
+		this._navbar.appendChild(this._showMoreSelect);
+
+        this._listTitle = document.createElement('h2');
+        this._listTitle.innerText = 'Listado de usuarios';
+
+
+        this._table = document.createElement('table');
+        this._tableHead = this._table.createTHead();
+		this._headRow = this._tableHead.insertRow()
+
+		this._tableBody = document.createElement('tbody');
+
+		for (let columnName of columnNames ) {
+			this._headRow.insertCell().innerText = columnName
+		}
+
+        this._table.appendChild(this._tableHead);
+        this._table.appendChild(this._tableBody);
+
+		this._select = document.createElement('select');
+	}
+	
+	connectedCallback()
+	{
+		//Es el primer método que se ejecuta cuando la instancia/objeto es insertado dentro
+		//de un nodo que ya sí está representado/renderizado en pantalla.
+		//Recién ahora, el objeto pasa a tener estado activo (Recibe eventos y puede contestarlos)
+		
+		this.appendChild( this._title );
+		this.appendChild( this._navbarTitle );
+		this.appendChild( this._navbar );
+
+        this.appendChild( this._listTitle );
+        this.appendChild( this._table);
+
+		this._listBtn.onclick = this.fillList.bind(this);
+		this._createBtn.onclick = this.createUser.bind(this);
+		this._editBtn.onclick = this.showAndEditUser.bind(this);
+		this._deleteBtn.onclick = this.showAndDeleteUser.bind(this);
+
+	}
+
+	fillList()
+	{
+		removeAllChildNodes(this._tableBody)
+
+		fetch(`${API_BASE_URL}/all`)
+			.then(response => response.json())
+			.then(data => {
+		  		  
+				for (let item of data) {
+					const tableRow = this._table.insertRow();
+	
+					const idCell = tableRow.insertCell();
+					const usernameCell = tableRow.insertCell();
+					const saldoCell = tableRow.insertCell();
+		
+					idCell.innerText = item.id;
+					usernameCell.innerText = item.username;
+					saldoCell.innerText = item.saldo;
+		
+					tableRow.appendChild(idCell);
+					tableRow.appendChild(usernameCell);
+					tableRow.appendChild(saldoCell);
+		
+					this._tableBody.appendChild(tableRow);
+				}
+			})
+			.catch(error => {
+			  console.error('Error fetching:', error);
+		  });
+	}
+
+	refreshList() {
+		this.fillList();
+	}
+
+	async showAndEditUser()
+	{
+		// Convert the user input from a string to a integer base 10.
+		const userId = parseInt(prompt("Ingrese el id del ususario: "), 10);
+		const newUserUsername = prompt("Ingrese el nuevo nombre de usuario: ");
+		const newUserBalance = prompt("Ingrese el nuevo saldo del ususario: ");
+
+		const user = await this.fetchUser(userId)
+
+		console.log("Usuario sin actualizar: \n");
+		console.log(user);
+
+		const newUser = {
+			username: newUserUsername,
+			saldo: `$${newUserBalance}`
+		}
+
+		const response = await fetch(`${API_BASE_URL}/${userId}/update`, {
+			  method: 'POST',
+			  headers: { 'Content-Type': 'application/json' },
+			  body: JSON.stringify(newUser)
+		  })
+
+		if (response.ok) {
+			const data = await response.json();
+			console.log("Response message: " + data.message)
+
+			this.refreshList();
+
+		  } else {
+			console.error("Error editing user:", response.statusText);
+			// Handle deletion failure (e.g., display error message)
+		  }
+	}
+
+	async showAndDeleteUser(userId) {
+
+		// Convert the user input from a string to a integer base 10.
+		userId = parseInt(prompt("Ingrese el id del ususario a eliminar: "), 10);
+
+		let user = await this.fetchUser(userId);
+
+		console.log("Usuario a eliminar: \n");
+		console.log(user);
+
+
+		const response = await fetch(`${API_BASE_URL}/${userId}/delete`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+		});
+		
+		if (response.ok) {
+			const data = await response.json();
+			console.log("Response message: " + data.message)
+
+			this.refreshList();
+		  } else {
+			console.error("Error deleting user:", response.statusText);
+			// Handle deletion failure (e.g., display error message)
+		  }
+
+	}
+
+	async fetchUser(userId)
+	{
+	
+		try {
+			const response = await fetch(`${API_BASE_URL}/${userId}`);
+			const user = await response.json();
+
+			return user;
+		} catch (error) {
+			console.error('Error fetching user:', error);
+		}
+	}
+
+	async createUser()
+	{
+		const username = prompt("Ingrese el nombre del usuario: ");
+		const balance = prompt("Ingrese el saldo del usuario: ");
+	  
+		const userData = {
+		  username: username,
+		  saldo: `$${balance}`
+		};
+	  
+		  	const response = await fetch(`${API_BASE_URL}/create-user`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(userData)
+			})
+
+			if (response.ok) {
+				const data = await response.json();
+				console.log("Response message: " + data.message)
+	
+				this.refreshList();
+	
+			  } else {
+				console.error("Error creating user:", response.statusText);
+				// Handle deletion failure (e.g., display error message)
+			  }
+
+		this.refreshList();
+	};
+
+	
+	disconnectedCallback()
+	{
+		//Se ejecuta cuando el elemento gráfico es retirado del nodo que lo representa.
+		//Vuelve a estar desconectado de la recepción de eventos.
+	}
+	
+	adoptedCallback()
+	{
+		//Se ejecuta sólo cuando el objeto es movido de "proceso" o de "pestaña"
+	}
+	
+	attributesChangedCallback( oldValue, newValue )
+	{
+		//Se utiliza sólo para personalizar el comportamiento ante cambios en los valores de los atributos
+		//que se definen en la propiedad observableAttributes()
+	}
+	
+	static get observableAttributes()
+	{
+		//Sirve para definir atributos del estilo "HTML" y que tienen posibilidad de ser modificados
+		//durante la ejecución.
+		return ["value"];
+	}
+}
+
+customElements.define( 'x-custom-selector', CustomSelector );
+
+let mySelector = new CustomSelector();
+
+document.body.appendChild(mySelector);
+
+</script>
+
+</html>
