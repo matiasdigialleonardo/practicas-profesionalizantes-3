@@ -78,73 +78,73 @@ class CalculatorView extends HTMLElement
 		const zeroTableRow = this._table.insertRow();
 		const clearTableRow = this._table.insertRow();
 
-		const displayInput = document.createElement("input");
+		this.displayInput = document.createElement("input");
 
-		const button0 = document.createElement('button');
-		const button1 = document.createElement('button');
-		const button2 = document.createElement('button');
-		const button3 = document.createElement('button');
-		const button4 = document.createElement('button');
-		const button5 = document.createElement('button');
-		const button6 = document.createElement('button');
-		const button7 = document.createElement('button');
-		const button8 = document.createElement('button');
-		const button9 = document.createElement('button');
+		this.button0 = document.createElement('button');
+		this.button1 = document.createElement('button');
+		this.button2 = document.createElement('button');
+		this.button3 = document.createElement('button');
+		this.button4 = document.createElement('button');
+		this.button5 = document.createElement('button');
+		this.button6 = document.createElement('button');
+		this.button7 = document.createElement('button');
+		this.button8 = document.createElement('button');
+		this.button9 = document.createElement('button');
 
-		const buttonPlus = document.createElement('button');
-		const buttonMinus = document.createElement('button');
-		const buttonProduct = document.createElement('button');
-		const buttonDivision = document.createElement('button');
+		this.buttonPlus = document.createElement('button');
+		this.buttonMinus = document.createElement('button');
+		this.buttonProduct = document.createElement('button');
+		this.buttonDivision = document.createElement('button');
 
-		const buttonDecimal = document.createElement('button');
-		const buttonCalculate = document.createElement('button');
-		const buttonClear = document.createElement("button");
+		this.buttonDecimal = document.createElement('button');
+		this.buttonCalculate = document.createElement('button');
+		this.buttonClear = document.createElement("button");
 
-		button0.textContent = "0";
-		button1.textContent = "1";
-		button2.textContent = "2";
-		button3.textContent = "3";
-		button4.textContent = "4";
-		button5.textContent = "5";
-		button6.textContent = "6";
-		button7.textContent = "7";
-		button8.textContent = "8";
-		button9.textContent = "9";
+		this.button0.textContent = "0";
+		this.button1.textContent = "1";
+		this.button2.textContent = "2";
+		this.button3.textContent = "3";
+		this.button4.textContent = "4";
+		this.button5.textContent = "5";
+		this.button6.textContent = "6";
+		this.button7.textContent = "7";
+		this.button8.textContent = "8";
+		this.button9.textContent = "9";
 
-		buttonPlus.textContent = "+";
-		buttonMinus.textContent = "-";
-		buttonProduct.textContent = "*";
-		buttonDivision.textContent = "/";
+		this.buttonPlus.textContent = "+";
+		this.buttonMinus.textContent = "-";
+		this.buttonProduct.textContent = "*";
+		this.buttonDivision.textContent = "/";
 
-		buttonDecimal.textContent = ".";
-		buttonCalculate.textContent = "=";
-		buttonClear.textContent = "BORRAR";
+		this.buttonDecimal.textContent = ".";
+		this.buttonCalculate.textContent = "=";
+		this.buttonClear.textContent = "BORRAR";
 
-		displayInput.classList.add("displayResult");
+		this.displayInput.classList.add("displayResult");
 
-		button0.classList.add("numberButton");
-		button1.classList.add("numberButton");
-		button2.classList.add("numberButton");
-		button3.classList.add("numberButton");
-		button4.classList.add("numberButton");
-		button5.classList.add("numberButton");
-		button6.classList.add("numberButton");
-		button7.classList.add("numberButton");
-		button8.classList.add("numberButton");
-		button9.classList.add("numberButton");
+		this.button0.classList.add("numberButton");
+		this.button1.classList.add("numberButton");
+		this.button2.classList.add("numberButton");
+		this.button3.classList.add("numberButton");
+		this.button4.classList.add("numberButton");
+		this.button5.classList.add("numberButton");
+		this.button6.classList.add("numberButton");
+		this.button7.classList.add("numberButton");
+		this.button8.classList.add("numberButton");
+		this.button9.classList.add("numberButton");
 
-		buttonPlus.classList.add("operatorButton");
-		buttonMinus.classList.add("operatorButton");
-		buttonProduct.classList.add("operatorButton");
-		buttonDivision.classList.add("operatorButton");
+		this.buttonPlus.classList.add("operatorButton");
+		this.buttonMinus.classList.add("operatorButton");
+		this.buttonProduct.classList.add("operatorButton");
+		this.buttonDivision.classList.add("operatorButton");
 
-		buttonDecimal.classList.add("numberButton");
-		buttonCalculate.classList.add("calculateButton");
-		buttonClear.classList.add("clearButton");
+		this.buttonDecimal.classList.add("numberButton");
+		this.buttonCalculate.classList.add("calculateButton");
+		this.buttonClear.classList.add("clearButton");
 
-		const displayCell = displayTableRow.insertCell()
-		displayCell.colSpan = 4;
-		displayCell.appendChild(displayInput);
+		this.displayCell = displayTableRow.insertCell()
+		this.displayCell.colSpan = 4;
+		this.displayCell.appendChild(this.displayInput);
 
 		sevenTableRow.insertCell().appendChild(button7);
 		sevenTableRow.insertCell().appendChild(button8);
@@ -161,7 +161,7 @@ class CalculatorView extends HTMLElement
 		oneTableRow.insertCell().appendChild(button3);
 		oneTableRow.insertCell().appendChild(buttonProduct);
 
-		zeroTableRow.insertCell().appendChild(button0);
+		zeroTableRow.insertCell().appendChild(this.button0);
 		zeroTableRow.insertCell().appendChild(buttonDecimal);
 		zeroTableRow.insertCell().appendChild(buttonCalculate);
 		zeroTableRow.insertCell().appendChild(buttonDivision);
@@ -185,14 +185,14 @@ class CalculatorView extends HTMLElement
 		return data;
 	}
 	
-	updateWith( data )
+	updateDisplayWith( data )
 	{
-		this._outputDisplay.value = data;
+		this.displayInput.value = "0";
 	}
 	
 	connectedCallback()
 	{
-		//this._loginButton.onclick = () => { this._innerController.onLoginButtonClick() };
+		this.button0.onclick = this._innerController.onButton0Click.bind(this._innerController);
 	}
 
 	disconnectedCallback()
@@ -226,13 +226,25 @@ class CalculatorController
 		this.innerModel = modelInstance;
 	}
 
-	onLoginButtonClick()
+	/* 
+		onLoginButtonClick()
+		{
+			let viewData = this.innerView.queryData();
+
+			let modelResponse = this.innerModel.login(viewData);
+
+			this.innerView.updateWith( JSON.stringify(modelResponse) );
+		}
+	*/
+
+	onButton0Click()
 	{
-		let viewData = this.innerView.queryData();
+		this.innerView.updateDisplayWith("0");
+	}
 
-		let modelResponse = this.innerModel.login(viewData);
-
-		this.innerView.updateWith( JSON.stringify(modelResponse) );
+	onButtonPress(data)
+	{
+		this.innerview.updateDisplayWith(data);
 	}
 }
 
