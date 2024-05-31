@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MVC WebComponent Design</title>
+</head>
+
+<body>
+
+
+</body>
+
+<style>
+	.numberButton
+	{
+		background-color: blue;
+		color: #FFFFFF;
+		border-color: #FFFFFF;
+		border-radius: 6px;
+		width: 100%;
+	}
+	
+	.operatorButton
+	{
+		background-color: #00FF04;
+		color: #FFFFFF;
+		border-color: #FFFFFF;
+		border-radius: 6px;
+		width: 100%;
+	}
+	
+	.clearButton
+	{
+		background-color: #FF0000;
+		color: #FFFFFF;
+		border-color: #FFFFFF;
+		width: 100%;
+		border-radius: 6px;
+	}
+	
+	.calculateButton
+	{
+		background-color: #FFB900;
+		color: #FFFFFF;
+		border-color: #FFFFFF;
+		width: 100%;
+		border-radius: 6px;
+	}
+	
+	.displayResult
+	{
+		border-radius: 6px;
+	}
+
+</style>
+
+
+<script>
+
+class CalculatorView extends HTMLElement
+{
+	constructor(modelInstance)
+	{
+		super();
+
+		this._innerController = new CalculatorController(this, modelInstance);
+		
+		this._table = document.createElement('table');
+
+		this._tableBody = document.createElement('tbody');
+
+        this._table.appendChild(this._tableBody);
+
+		const displayTableRow = this._table.insertRow();
+		const sevenTableRow = this._table.insertRow();
+		const fourTableRow = this._table.insertRow();
+		const oneTableRow = this._table.insertRow();
+		const zeroTableRow = this._table.insertRow();
+		const clearTableRow = this._table.insertRow();
+
+		const displayInput = document.createElement("input");
+
+		const button0 = document.createElement('button');
+		const button1 = document.createElement('button');
+		const button2 = document.createElement('button');
+		const button3 = document.createElement('button');
+		const button4 = document.createElement('button');
+		const button5 = document.createElement('button');
+		const button6 = document.createElement('button');
+		const button7 = document.createElement('button');
+		const button8 = document.createElement('button');
+		const button9 = document.createElement('button');
+
+		const buttonPlus = document.createElement('button');
+		const buttonMinus = document.createElement('button');
+		const buttonProduct = document.createElement('button');
+		const buttonDivision = document.createElement('button');
+
+		const buttonDecimal = document.createElement('button');
+		const buttonCalculate = document.createElement('button');
+		const buttonClear = document.createElement("button");
+
+		button0.textContent = "0";
+		button1.textContent = "1";
+		button2.textContent = "2";
+		button3.textContent = "3";
+		button4.textContent = "4";
+		button5.textContent = "5";
+		button6.textContent = "6";
+		button7.textContent = "7";
+		button8.textContent = "8";
+		button9.textContent = "9";
+
+		buttonPlus.textContent = "+";
+		buttonMinus.textContent = "-";
+		buttonProduct.textContent = "*";
+		buttonDivision.textContent = "/";
+
+		buttonDecimal.textContent = ".";
+		buttonCalculate.textContent = "=";
+		buttonClear.textContent = "BORRAR";
+
+		displayInput.classList.add("displayResult");
+
+		button0.classList.add("numberButton");
+		button1.classList.add("numberButton");
+		button2.classList.add("numberButton");
+		button3.classList.add("numberButton");
+		button4.classList.add("numberButton");
+		button5.classList.add("numberButton");
+		button6.classList.add("numberButton");
+		button7.classList.add("numberButton");
+		button8.classList.add("numberButton");
+		button9.classList.add("numberButton");
+
+		buttonPlus.classList.add("operatorButton");
+		buttonMinus.classList.add("operatorButton");
+		buttonProduct.classList.add("operatorButton");
+		buttonDivision.classList.add("operatorButton");
+
+		buttonDecimal.classList.add("numberButton");
+		buttonCalculate.classList.add("calculateButton");
+		buttonClear.classList.add("clearButton");
+
+		const displayCell = displayTableRow.insertCell()
+		displayCell.colSpan = 4;
+		displayCell.appendChild(displayInput);
+
+		sevenTableRow.insertCell().appendChild(button7);
+		sevenTableRow.insertCell().appendChild(button8);
+		sevenTableRow.insertCell().appendChild(button9);
+		sevenTableRow.insertCell().appendChild(buttonPlus);
+
+		fourTableRow.insertCell().appendChild(button4);
+		fourTableRow.insertCell().appendChild(button5);
+		fourTableRow.insertCell().appendChild(button6);
+		fourTableRow.insertCell().appendChild(buttonMinus);
+
+		oneTableRow.insertCell().appendChild(button1);
+		oneTableRow.insertCell().appendChild(button2);
+		oneTableRow.insertCell().appendChild(button3);
+		oneTableRow.insertCell().appendChild(buttonProduct);
+
+		zeroTableRow.insertCell().appendChild(button0);
+		zeroTableRow.insertCell().appendChild(buttonDecimal);
+		zeroTableRow.insertCell().appendChild(buttonCalculate);
+		zeroTableRow.insertCell().appendChild(buttonDivision);
+
+		const clearTableCell = clearTableRow.insertCell()
+		clearTableCell.colSpan = 4;
+		clearTableCell.appendChild(buttonClear);
+
+		this.appendChild(this._table)
+
+	}
+
+	queryData()
+	{
+		let data =
+		{
+			username: this._username.value,
+			password: this._password.value
+		}
+
+		return data;
+	}
+	
+	updateWith( data )
+	{
+		this._outputDisplay.value = data;
+	}
+	
+	connectedCallback()
+	{
+		//this._loginButton.onclick = () => { this._innerController.onLoginButtonClick() };
+	}
+
+	disconnectedCallback()
+	{
+
+	}
+
+	adoptedCallback()
+	{
+
+	}
+
+	attributeChangedCallback(oldValue, newValue)
+	{
+
+	}
+
+	static observableAttributes()
+	{
+		return [];
+	}
+}
+
+customElements.define('wc-view', CalculatorView);
+
+class CalculatorController
+{
+	constructor(viewInstance, modelInstance)
+	{		
+		this.innerView = viewInstance;
+		this.innerModel = modelInstance;
+	}
+
+	onLoginButtonClick()
+	{
+		let viewData = this.innerView.queryData();
+
+		let modelResponse = this.innerModel.login(viewData);
+
+		this.innerView.updateWith( JSON.stringify(modelResponse) );
+	}
+}
+
+class CalculatorModel
+{
+	constructor()
+	{
+		this._loginData = { username: 'jose', password: 'chango' };
+	}
+
+	login( data )
+	{
+		let response = { status: null, description: null };
+		
+		if ( data.username == this._loginData.username && data.password == this._loginData.password )
+		{
+			response.status = 'ok';
+			response.description = '¡Hola José!';
+		}
+		else
+		{
+			response.status = 'error';
+			response.description = 'Usuario y/o contraseña inválida.';
+		}
+
+		return response;
+	}
+}
+
+function main()
+{
+	let model = new CalculatorModel();
+	let view = new CalculatorView(model);
+
+	document.body.appendChild(view);
+}
+
+window.onload = main;
+
+</script>
+
+</html>
