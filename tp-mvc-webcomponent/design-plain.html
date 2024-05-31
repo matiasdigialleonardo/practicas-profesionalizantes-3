@@ -146,29 +146,29 @@ class CalculatorView extends HTMLElement
 		this.displayCell.colSpan = 4;
 		this.displayCell.appendChild(this.displayInput);
 
-		sevenTableRow.insertCell().appendChild(button7);
-		sevenTableRow.insertCell().appendChild(button8);
-		sevenTableRow.insertCell().appendChild(button9);
-		sevenTableRow.insertCell().appendChild(buttonPlus);
+		sevenTableRow.insertCell().appendChild(this.button7);
+		sevenTableRow.insertCell().appendChild(this.button8);
+		sevenTableRow.insertCell().appendChild(this.button9);
+		sevenTableRow.insertCell().appendChild(this.buttonPlus);
 
-		fourTableRow.insertCell().appendChild(button4);
-		fourTableRow.insertCell().appendChild(button5);
-		fourTableRow.insertCell().appendChild(button6);
-		fourTableRow.insertCell().appendChild(buttonMinus);
+		fourTableRow.insertCell().appendChild(this.button4);
+		fourTableRow.insertCell().appendChild(this.button5);
+		fourTableRow.insertCell().appendChild(this.button6);
+		fourTableRow.insertCell().appendChild(this.buttonMinus);
 
-		oneTableRow.insertCell().appendChild(button1);
-		oneTableRow.insertCell().appendChild(button2);
-		oneTableRow.insertCell().appendChild(button3);
-		oneTableRow.insertCell().appendChild(buttonProduct);
+		oneTableRow.insertCell().appendChild(this.button1);
+		oneTableRow.insertCell().appendChild(this.button2);
+		oneTableRow.insertCell().appendChild(this.button3);
+		oneTableRow.insertCell().appendChild(this.buttonProduct);
 
 		zeroTableRow.insertCell().appendChild(this.button0);
-		zeroTableRow.insertCell().appendChild(buttonDecimal);
-		zeroTableRow.insertCell().appendChild(buttonCalculate);
-		zeroTableRow.insertCell().appendChild(buttonDivision);
+		zeroTableRow.insertCell().appendChild(this.buttonDecimal);
+		zeroTableRow.insertCell().appendChild(this.buttonCalculate);
+		zeroTableRow.insertCell().appendChild(this.buttonDivision);
 
 		const clearTableCell = clearTableRow.insertCell()
 		clearTableCell.colSpan = 4;
-		clearTableCell.appendChild(buttonClear);
+		clearTableCell.appendChild(this.buttonClear);
 
 		this.appendChild(this._table)
 
