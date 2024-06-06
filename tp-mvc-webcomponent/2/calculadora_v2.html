@@ -78,6 +78,10 @@ class CalculatorView extends HTMLElement
 		const zeroTableRow = this._table.insertRow();
 		const clearTableRow = this._table.insertRow();
 
+		// Los botones van antes de la tabla porque son cosas que despues van en la tabla.
+
+
+
 		this.displayInput = document.createElement("input");
 
 		this.button0 = document.createElement('button');
@@ -173,26 +177,55 @@ class CalculatorView extends HTMLElement
 		this.appendChild(this._table)
 
 	}
-
-	queryData()
-	{
-		let data =
-		{
-			username: this._username.value,
-			password: this._password.value
-		}
-
-		return data;
-	}
 	
 	updateDisplayWith( data )
 	{
-		this.displayInput.value = "0";
+		let expression = this.getExpression() + data;
+
+		this.clearDisplay();
+
+		this.displayInput.value = expression;
 	}
-	
+
+	showResult( result )
+	{
+		this.displayInput.value = result;
+	}
+
+	clearDisplay()
+	{
+		this.displayInput.value = "";
+	}
+
+	getExpression()
+	{
+		return this.displayInput.value;
+	}
+
 	connectedCallback()
 	{
 		this.button0.onclick = this._innerController.onButton0Click.bind(this._innerController);
+		this.button1.onclick = this._innerController.onButton1Click.bind(this._innerController);
+		this.button2.onclick = this._innerController.onButton2Click.bind(this._innerController);
+		this.button3.onclick = this._innerController.onButton3Click.bind(this._innerController);
+		this.button4.onclick = this._innerController.onButton4Click.bind(this._innerController);
+		this.button5.onclick = this._innerController.onButton5Click.bind(this._innerController);
+		this.button6.onclick = this._innerController.onButton6Click.bind(this._innerController);
+		this.button7.onclick = this._innerController.onButton7Click.bind(this._innerController);
+		this.button8.onclick = this._innerController.onButton8Click.bind(this._innerController);
+		this.button9.onclick = this._innerController.onButton9Click.bind(this._innerController);
+
+		this.buttonPlus.onclick = this._innerController.onButtonPlusClick.bind(this._innerController);
+		this.buttonMinus.onclick = this._innerController.onButtonMinusClick.bind(this._innerController);
+		this.buttonProduct.onclick = this._innerController.onButtonProductClick.bind(this._innerController);
+		this.buttonDivision.onclick = this._innerController.onButtonDivisionClick.bind(this._innerController);
+
+		this.buttonDecimal.onclick = this._innerController.onButtonDecimalClick.bind(this._innerController);
+		this.buttonClear.onclick = this._innerController.onButtonClearClick.bind(this._innerController);
+		this.buttonCalculate.onclick = this._innerController.onButtonCalculateClick.bind(this._innerController);
+
+
+
 	}
 
 	disconnectedCallback()
@@ -237,40 +270,46 @@ class CalculatorController
 		}
 	*/
 
-	onButton0Click()
-	{
-		this.innerView.updateDisplayWith("0");
-	}
+	onButton0Click() { this.innerView.updateDisplayWith("0"); }
+	onButton1Click() { this.innerView.updateDisplayWith("1"); }
+	onButton2Click() { this.innerView.updateDisplayWith("2"); }
+	onButton3Click() { this.innerView.updateDisplayWith("3"); }
+	onButton4Click() { this.innerView.updateDisplayWith("4"); }
+	onButton5Click() { this.innerView.updateDisplayWith("5"); }
+	onButton6Click() { this.innerView.updateDisplayWith("6"); }
+	onButton7Click() { this.innerView.updateDisplayWith("7"); }
+	onButton8Click() { this.innerView.updateDisplayWith("8"); }
+	onButton9Click() { this.innerView.updateDisplayWith("9"); }
 
-	onButtonPress(data)
-	{
-		this.innerview.updateDisplayWith(data);
+	onButtonPlusClick() { this.innerView.updateDisplayWith("+"); }
+	onButtonMinusClick() { this.innerView.updateDisplayWith("-"); }
+	onButtonProductClick() { this.innerView.updateDisplayWith("*"); }
+	onButtonDivisionClick() { this.innerView.updateDisplayWith("/"); }
+
+	onButtonDecimalClick() { this.innerView.updateDisplayWith("."); }
+	onButtonClearClick() { this.innerView.clearDisplay(); }
+
+	onButtonCalculateClick() { 
+			
+		// Call the view to get expresion from display.
+		let expression = this.innerView.getExpression();
+
+		// Call the model to make the calculation.
+		let result = this.innerModel.calculate(expression);
+
+		// Call the view to update the display.
+		this.innerView.showResult(result); 
+
 	}
 }
 
 class CalculatorModel
 {
-	constructor()
-	{
-		this._loginData = { username: 'jose', password: 'chango' };
-	}
+	constructor(){};
 
-	login( data )
+	calculate(expression)
 	{
-		let response = { status: null, description: null };
-		
-		if ( data.username == this._loginData.username && data.password == this._loginData.password )
-		{
-			response.status = 'ok';
-			response.description = '¡Hola José!';
-		}
-		else
-		{
-			response.status = 'error';
-			response.description = 'Usuario y/o contraseña inválida.';
-		}
-
-		return response;
+		return eval(expression);
 	}
 }
 
