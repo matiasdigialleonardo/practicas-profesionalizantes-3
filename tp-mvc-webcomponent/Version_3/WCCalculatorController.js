@@ -42,10 +42,16 @@ class WCCalculatorController
 		let expression = this.innerView.getExpression();
 
 		// Call the model to make the calculation.
-		let result = this.innerModel.calculate(expression);
+		// let result = this.innerModel.calculate(expression);
 
-		// Call the view to update the display.
-		this.innerView.showResult(result); 
+		this.innerModel.calculateResult(expression).then ( modelResponse =>
+			{
+				this.innerView.showResult(modelResponse)	
+			}
+		)
+
+		// // Call the view to update the display.
+		// this.innerView.showResult(result); 
 
 	}
 }
