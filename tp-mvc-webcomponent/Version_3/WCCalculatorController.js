@@ -44,9 +44,9 @@ class WCCalculatorController
 		// Call the model to make the calculation.
 		// let result = this.innerModel.calculate(expression);
 
-		this.innerModel.calculateResult(expression).then ( modelResponse =>
+		this.innerModel.calculateResult(expression).then( modelResponse =>
 			{
-				this.innerView.showResult(modelResponse)	
+				this.innerView.showResult(modelResponse.result)	
 			}
 		)
 

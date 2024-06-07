@@ -2,23 +2,19 @@
 
 class WCCalculatorModel
 {
-    public function __construct() {}
-
-    
     public function calculate($expression)
     {
-        return eval($expression);
+        return eval('return ' . $expression . ';');
     }
 }
 
 header('Content-Type: application/json');
-$json_body = file_get_contents('php://input');
-$data = json_decode($json_body);
+
+$data = json_decode(file_get_contents('php://input'));
 
 $instance = new WCCalculatorModel();
 $result = $instance->calculate($data->expression);
 
-
-echo $result;
+echo json_encode(['result' => $result]);
 
 ?>

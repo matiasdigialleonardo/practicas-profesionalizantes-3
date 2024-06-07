@@ -4,7 +4,9 @@ class WCCalculatorModel
 
 	async calculateResult(expression)
 	{
-		return fetch('./api/calculate.php', { method:'post', body: JSON.stringify(expression) } ).then( );
+		return fetch('./api/calculate.php', { method:'post', body: JSON.stringify({expression: expression}) } ).then(
+			response => response.json()
+		);
 	}
 }
 
