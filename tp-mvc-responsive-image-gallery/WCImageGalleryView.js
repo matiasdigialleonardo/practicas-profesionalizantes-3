@@ -1,5 +1,11 @@
 import { WCImageGalleryController } from "./WCImageGalleryController.js";
 
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
 class WCImageGalleryView extends HTMLElement
 {
 	constructor(modelInstance)
@@ -19,15 +25,9 @@ class WCImageGalleryView extends HTMLElement
 		this.addImageButton = document.createElement("button");
 		this.addImageButton.innerText = "Add another image";
 
-		const testImage = document.createElement("img");
-		testImage.src = "./images/DIO.jpeg"
-
 		this.appendChild(title);
 		this.appendChild(subTitle);
 		this.appendChild(this.addImageButton);
-
-
-		this._imagesContainer.appendChild(testImage);
 
 		this.appendChild(this._imagesContainer);
 
@@ -35,6 +35,8 @@ class WCImageGalleryView extends HTMLElement
 	
 	connectedCallback()
 	{
+		this.addImageButton.onclick = this.handleAddImageButtonClick.bind(this);
+
 
 	}
 
@@ -58,14 +60,27 @@ class WCImageGalleryView extends HTMLElement
 		return [];
 	}
 
+	handleAddImageButtonClick() {
+		const url = prompt('Enter the image URL:');
+		if (url) {
+		  this._innerController.addImage(url);
+
+		  this.updateDisplay();
+		}
+	  }
+
 	updateDisplay()
 	{
+		removeAllChildNodes(this._imagesContainer)
+
 		const images = this._innerController.getImages();
+		console.log(images);
 
 		for (const image of images){
 			let img = document.createElement("img");
 
 			img.src = image.src;
+			console.log("Image src is: " + image.src);
 			img.alt = image.alt;
 			img.width = image.width;
 			img.height = image.height;

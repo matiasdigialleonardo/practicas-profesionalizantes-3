@@ -8,9 +8,14 @@ class WCImageGalleryController
 
 	getImages()
 	{
-		const images = this.innerModel.images;
+		const images = this.innerModel._images;
 
 		return images;
+	}
+
+	addImage(url)
+	{
+		this.innerModel.addImage(url);
 	}
 }
 

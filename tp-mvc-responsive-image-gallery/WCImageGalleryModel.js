@@ -12,12 +12,17 @@ class WCImageGalleryModel
 		return image;
 	}
 
-	addImage(image){
+	addImage(url){
+
+		const image = this.getImage(url);
+
 		this._images.push(image);
+
+		console.log(this._images)
 	}
 
 	removeImage(id) {
-		const index = this.images.findIndex(image => image.id === id);
+		const index = this._images.findIndex(image => image.id === id);
 		if (index !== -1) {
 		  this._images.splice(index, 1);
 		} else {
