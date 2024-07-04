@@ -25,8 +25,33 @@ class WCImageGalleryView extends HTMLElement
 		this.addImageButton = document.createElement("button");
 		this.addImageButton.innerText = "Add another image";
 
+		// Create the form elements
+		this.form = document.createElement("form");
+
+		const urlLabel = document.createElement("label");
+		urlLabel.innerText = "Image URL: ";
+		this.urlInput = document.createElement("input");
+		this.urlInput.type = "text";
+
+		const captionLabel = document.createElement("label");
+		captionLabel.innerText = "Caption: ";
+		this.captionInput = document.createElement("input");
+		this.captionInput.type = "text";
+
+		const submitButton = document.createElement("button");
+		submitButton.type = "submit";
+		submitButton.innerText = "Add Image";
+
+		// Append form elements
+		this.form.appendChild(urlLabel);
+		this.form.appendChild(this.urlInput);
+		this.form.appendChild(captionLabel);
+		this.form.appendChild(this.captionInput);
+		this.form.appendChild(submitButton);
+
 		this.appendChild(title);
 		this.appendChild(subTitle);
+
 		this.appendChild(this.addImageButton);
 
 		this.appendChild(this._imagesContainer);
@@ -39,6 +64,18 @@ class WCImageGalleryView extends HTMLElement
 
 
 	}
+
+	handleFormSubmit(event) {
+			event.preventDefault();
+			const url = this.urlInput.value;
+			const caption = this.captionInput.value;
+			if (url && caption) {
+			this._innerController.addImage(url, caption);
+			this.urlInput.value = '';
+			this.captionInput.value = '';
+		}
+	}
+
 
 	disconnectedCallback()
 	{
@@ -64,30 +101,45 @@ class WCImageGalleryView extends HTMLElement
 		const url = prompt('Enter the image URL:');
 		if (url) {
 		  this._innerController.addImage(url);
-
-		  this.updateDisplay();
 		}
-	  }
+	}
 
-	updateDisplay()
+	updateDisplay(images)
 	{
 		removeAllChildNodes(this._imagesContainer)
 
-		const images = this._innerController.getImages();
-		console.log(images);
+		console.log("Is this being console logged : " + images);
 
 		for (const image of images){
+
+			const responsiveDiv = document.createElement("div");
+			const galleryDiv = document.createElement("div");
 			let img = document.createElement("img");
+			let imgAnchor = document.createElement("a");
+			let imgDescriptionDiv = document.createElement("div");
+
+
+			responsiveDiv.classList.add("responsive");
+			galleryDiv.classList.add("gallery");
+			imgDescriptionDiv.classList.add("desc");
+
+			imgAnchor.href = image.src;
+			imgAnchor.target = "_blank";
+
+			imgDescriptionDiv.innerText = image.alt;
 
 			img.src = image.src;
-			console.log("Image src is: " + image.src);
 			img.alt = image.alt;
 			img.width = image.width;
 			img.height = image.height;
 
-			this._imagesContainer.appendChild(img);
+			responsiveDiv.appendChild(galleryDiv);
+			galleryDiv.appendChild(imgAnchor);
+			galleryDiv.appendChild(imgDescriptionDiv);
+			imgAnchor.appendChild(img);
 
-			console.log("a");
+			this._imagesContainer.appendChild(responsiveDiv);
+
 		}
 	}
 }

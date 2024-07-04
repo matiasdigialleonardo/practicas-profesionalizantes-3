@@ -1,8 +1,9 @@
 import { Image } from "./image.js"
 
-class WCImageGalleryModel
+class WCImageGalleryModel extends EventTarget
 {
 	constructor(){
+		super();
 		this._images = [];
 	};
 
@@ -12,14 +13,23 @@ class WCImageGalleryModel
 		return image;
 	}
 
-	addImage(url){
-
-		const image = this.getImage(url);
-
-		this._images.push(image);
-
-		console.log(this._images)
+	getImages(){
+		return this._images;
 	}
+
+  addImage(url){
+    const image = this.getImage(url);
+    this._images.push(image);
+    
+    // Create and dispatch a custom event with the images in the detail
+    const event = new CustomEvent('imageAdded', {
+      detail: {
+        images: this._images
+      }
+    });
+    this.dispatchEvent(event);
+    console.log(this._images);
+  }
 
 	removeImage(id) {
 		const index = this._images.findIndex(image => image.id === id);
