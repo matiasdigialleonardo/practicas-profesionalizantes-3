@@ -9,6 +9,7 @@ class WCImageGalleryModel extends EventTarget
 
 	getImage(url, caption) {
 		const image = new Image(url, caption);
+
 		return image;
 	}
 
