@@ -22,60 +22,50 @@ class WCImageGalleryView extends HTMLElement
         const subTitle = document.createElement("h4");
         subTitle.innerText = "Resize the browser window to see the effect.";
 
-		this.addImageButton = document.createElement("button");
-		this.addImageButton.innerText = "Add another image";
-
-		// Create the form elements
+		// Form elements
 		this.form = document.createElement("form");
+
+		this.form.classList.add("form-class");
 
 		const urlLabel = document.createElement("label");
 		urlLabel.innerText = "Image URL: ";
+
 		this.urlInput = document.createElement("input");
 		this.urlInput.type = "text";
+		this.urlInput.classList.add("input-class")
 
 		const captionLabel = document.createElement("label");
-		captionLabel.innerText = "Caption: ";
+		captionLabel.innerText = "Image description: ";
+
 		this.captionInput = document.createElement("input");
 		this.captionInput.type = "text";
+		this.captionInput.classList.add("input-class");
 
 		const submitButton = document.createElement("button");
 		submitButton.type = "submit";
 		submitButton.innerText = "Add Image";
 
-		// Append form elements
+		this.appendChild(title);
+		this.appendChild(subTitle);
+
+		// Append form elements to the form
 		this.form.appendChild(urlLabel);
 		this.form.appendChild(this.urlInput);
 		this.form.appendChild(captionLabel);
 		this.form.appendChild(this.captionInput);
 		this.form.appendChild(submitButton);
 
-		this.appendChild(title);
-		this.appendChild(subTitle);
 
-		this.appendChild(this.addImageButton);
+		// Append the form
+		this.appendChild(this.form);
 
 		this.appendChild(this._imagesContainer);
-
 	}
 	
 	connectedCallback()
 	{
-		this.addImageButton.onclick = this.handleAddImageButtonClick.bind(this);
-
-
+		this.form.onsubmit = this.handleFormSubmit.bind(this);
 	}
-
-	handleFormSubmit(event) {
-			event.preventDefault();
-			const url = this.urlInput.value;
-			const caption = this.captionInput.value;
-			if (url && caption) {
-			this._innerController.addImage(url, caption);
-			this.urlInput.value = '';
-			this.captionInput.value = '';
-		}
-	}
-
 
 	disconnectedCallback()
 	{
@@ -97,18 +87,22 @@ class WCImageGalleryView extends HTMLElement
 		return [];
 	}
 
-	handleAddImageButtonClick() {
-		const url = prompt('Enter the image URL:');
-		if (url) {
-		  this._innerController.addImage(url);
+
+	// Handle form submit and create a new image with the received data
+	handleFormSubmit(event) {
+			event.preventDefault();
+			const url = this.urlInput.value;
+			const caption = this.captionInput.value;
+			if (url && caption) {
+			this._innerController.addImage(url, caption);
+			this.urlInput.value = '';
+			this.captionInput.value = '';
 		}
 	}
 
 	updateDisplay(images)
 	{
 		removeAllChildNodes(this._imagesContainer)
-
-		console.log("Is this being console logged : " + images);
 
 		for (const image of images){
 
@@ -117,7 +111,6 @@ class WCImageGalleryView extends HTMLElement
 			let img = document.createElement("img");
 			let imgAnchor = document.createElement("a");
 			let imgDescriptionDiv = document.createElement("div");
-
 
 			responsiveDiv.classList.add("responsive");
 			galleryDiv.classList.add("gallery");
@@ -134,12 +127,11 @@ class WCImageGalleryView extends HTMLElement
 			img.height = image.height;
 
 			responsiveDiv.appendChild(galleryDiv);
+			imgAnchor.appendChild(img);
 			galleryDiv.appendChild(imgAnchor);
 			galleryDiv.appendChild(imgDescriptionDiv);
-			imgAnchor.appendChild(img);
-
+			
 			this._imagesContainer.appendChild(responsiveDiv);
-
 		}
 	}
 }
