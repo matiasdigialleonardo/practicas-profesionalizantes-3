@@ -16,17 +16,13 @@
 		// Get all the images from the model
 		getImages()
 		{
-			let images = this.innerModel.getImages();
-
-			return images;
+			return this.innerModel.getImages();
 		}
 
-		// Call the model to add an image based on the url
-		addImage(url)
-		{
-			this.innerModel.addImage(url);
-		}
 
+		addImage(url, caption) {
+			this.innerModel.addImage(url, caption);
+		}
 
 		updateView(event) {
 			const images = event.detail.images;

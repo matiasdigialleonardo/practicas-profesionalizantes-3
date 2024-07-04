@@ -7,9 +7,8 @@ class WCImageGalleryModel extends EventTarget
 		this._images = [];
 	};
 
-	getImage(url){
-		const image = new Image(url);
-
+	getImage(url, caption) {
+		const image = new Image(url, caption);
 		return image;
 	}
 
@@ -17,19 +16,19 @@ class WCImageGalleryModel extends EventTarget
 		return this._images;
 	}
 
-  addImage(url){
-    const image = this.getImage(url);
-    this._images.push(image);
-    
-    // Create and dispatch a custom event with the images in the detail
-    const event = new CustomEvent('imageAdded', {
-      detail: {
-        images: this._images
-      }
-    });
-    this.dispatchEvent(event);
-    console.log(this._images);
-  }
+	addImage(url, caption) {
+		const image = this.getImage(url, caption);
+		this._images.push(image);
+
+		// Send the images list within the imageAdded event
+		const event = new CustomEvent('imageAdded', {
+			detail: {
+				images: this._images
+			}
+		});
+
+		this.dispatchEvent(event);
+	}
 
 	removeImage(id) {
 		const index = this._images.findIndex(image => image.id === id);
