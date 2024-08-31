@@ -1,3 +1,5 @@
+const Player = require('./player');
+
 module.exports = io => {
 
     var line_history = [];
@@ -6,6 +8,10 @@ module.exports = io => {
         console.log('new User connected');
 
         const userColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+
+        const player = new Player(`Player-${socket.id}`);
+
+        console.log(`${player.name} connected`);
 
         // Send the line history to the newly connected user
         for(let i in line_history){
