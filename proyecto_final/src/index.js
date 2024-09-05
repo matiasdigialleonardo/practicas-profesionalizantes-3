@@ -15,64 +15,60 @@ app.set('port', process.env.PORT || 3000);
 // sockets
 require('./sockets')(io);
 
-// Database connection
-const connection = mysql.createConnection({
-    host: '127.0.0.1',
-    port: 3306,
-    user: 'root',
-    password: '',
-    database: 'tp2_seminario'
-});
-
-// Connect to the database
-connection.connect(err => {
-    if (err) {
-        console.error('Error connecting to the database:', err.message);
-        process.exit(1); // Exit the application if the connection fails
-    }
-    console.log('Connected to the database');
-});
-
-
 app.use(express.json());
 
-// Route to handle user creation
-app.post('/user/createUser', (req, res) => {
-    const { nickname, password } = req.body;
+const users =
+[
+    {
+        username: "a",
+        password: "a",
+        is_authenticated: false
+    },
+    {
+        username: "b",
+        password: "b",
+        is_authenticated: false
+    },
+]
 
-    // SQL query to insert a new user
-    const sql = 'INSERT INTO user (nickname, password) VALUES (?, ?)';
-
-    connection.query(sql, [nickname, password], (err, results) => {
-        if (err) {
-            console.error('Error executing query:', err.message);
-            return res.status(500).json({ status: 'db-error', description: err.message });
+function logUser(username, password)
+{
+    for (const user of users) {
+        if (user.username === username && user.password === password) {
+            user.is_authenticated = true;
+            console.log(`User ${username} authenticated.`);
+            return true;
         }
+    }
 
-        // Respond with success status
-        res.json({ status: 'ok', description: `${nickname} - ${password}` });
-    });
-});
+    return false;
+}
+
+function isUserAuthenticated(username)
+{
+    for (const user of users) {
+        if (user.username === username) {
+            return user ? user.is_authenticated : false;
+        }
+    }
+
+    return false;
+}
+
 
 app.post('/user/login', (req, res) => {
     const { nickname, password } = req.body;
 
-    // SQL query to check if the user exists
-    const sql = 'SELECT COUNT(*) AS count FROM user WHERE nickname = ? AND password = ?';
+    was_user_logged = logUser(nickname, password);
 
-    connection.query(sql, [nickname, password], (err, results) => {
-        if (err) {
-            console.error('Error executing query:', err.message);
-            return res.status(500).json({ status: 'db-error', description: err.message });
-        }
-
-        const row = results[0];
-        if (row.count > 0) {
-            res.json({ status: 'ok', description: 'User found' });
-        } else {
-            res.json({ status: 'error', description: 'Invalid username or password' });
-        }
-    });
+    if (was_user_logged)
+    {
+        return res.json({ status: 'ok', description: 'User found' });
+    }
+    else
+    {
+        res.json({ status: 'error', description: 'Invalid username or password' });
+    }
 });
 
 

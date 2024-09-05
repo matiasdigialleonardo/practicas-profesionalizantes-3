@@ -5,7 +5,6 @@ module.exports = io => {
     var line_history = [];
 
     io.on('connection', socket => {
-        console.log('new User connected');
 
         const userColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
 
