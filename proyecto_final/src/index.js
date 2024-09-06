@@ -20,11 +20,13 @@ app.use(express.json());
 const users =
 [
     {
+        id: 1,
         username: "a",
         password: "a",
         is_authenticated: false
     },
     {
+        id: 2,
         username: "b",
         password: "b",
         is_authenticated: false
