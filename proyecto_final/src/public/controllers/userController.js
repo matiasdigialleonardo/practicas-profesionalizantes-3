@@ -23,7 +23,10 @@ export class UserController
         } );
 	}
 
-
+	is_user_authenticated()
+	{
+		return this.innerModel.is_user_authenticated();
+	}
 
 	disconnect()
 	{

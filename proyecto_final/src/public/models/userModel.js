@@ -4,13 +4,11 @@ const users =
         id: 1,
         username: "a",
         password: "a",
-        is_authenticated: false
     },
     {
         id: 2,
         username: "b",
         password: "b",
-        is_authenticated: false
     },
 ]
 
@@ -18,20 +16,24 @@ export class UserModel
 {
 	constructor()
 	{
+        this.is_authenticated = false;
  	}
 
     logUser(username, password)
     {
         for (const user of users) {
             if (user.username === username && user.password === password) {
-                user.is_authenticated = true;
-                console.log(`User ${username} authenticated.`);
+                this.is_authenticated = true;
                 return true;
             }
         }
     
         return false;
     }
-     
+
+    is_user_authenticated()
+    {
+        return this.is_authenticated;
+    }
 
 }
