@@ -2,8 +2,7 @@ class GameModel
 {
     constructor()
     {
-        super();
     }
 }
 
-module.exports = GameModel;
+export { GameModel };

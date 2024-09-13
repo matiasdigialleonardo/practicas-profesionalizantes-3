@@ -1,13 +1,21 @@
-const GameView = require('./views/gameView');
-const GameModel = require('./models/gameModel');
-const GameController = require('./controllers/gameController');
+import { GameView } from './views/gameView.js';
+import { GameModel } from './models/gameModel.js';
+import { GameController } from './controllers/gameController.js';
 
-class GameApplication
+class GameApplication extends HTMLElement
 {
     constructor()
     {
+        super();
+
         this.gameView = new GameView();
         this.gameModel = new GameModel();
         this.gameController = new GameController(this.gameView, this.gameModel);
+
+        this.gameController.start();
     }
 }
+
+customElements.define('wc-ga', GameApplication);
+
+export { GameApplication };

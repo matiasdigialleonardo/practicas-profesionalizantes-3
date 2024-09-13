@@ -2,11 +2,15 @@ class GameController
 {
     constructor(view, model)
     {
-        super();
 
         this.gameView = view;
         this.gameModel = model;
     }
+
+    start()
+    {
+        console.log("Im starting...")
+    }
 }
 
-module.exports = GameController;
+export { GameController };
