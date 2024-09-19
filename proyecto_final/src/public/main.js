@@ -9,6 +9,8 @@ function removeAllChildNodes(parent) {
 function main()
 {
 	const gameApplication = new GameApplication();
+
+    document.body.appendChild(gameApplication);
 	
 
 }

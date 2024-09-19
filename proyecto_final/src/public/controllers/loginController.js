@@ -1,4 +1,4 @@
-export class UserController
+export class LoginController
 {
 	constructor( model, view )
 	{

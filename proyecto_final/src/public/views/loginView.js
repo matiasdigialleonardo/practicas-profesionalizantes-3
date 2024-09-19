@@ -1,4 +1,4 @@
-export class UserView extends HTMLElement
+export class LoginView extends HTMLElement
 {
 	constructor()
 	{
@@ -49,4 +49,4 @@ export class UserView extends HTMLElement
 	}
 }
 
-customElements.define('wc-view', UserView);
+customElements.define('wc-view', LoginView);

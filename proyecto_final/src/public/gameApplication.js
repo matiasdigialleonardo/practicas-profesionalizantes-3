@@ -12,6 +12,8 @@ class GameApplication extends HTMLElement
         this.gameModel = new GameModel();
         this.gameController = new GameController(this.gameView, this.gameModel);
 
+        this.appendChild(this.gameView);
+
         this.gameController.start();
     }
 }

@@ -12,7 +12,7 @@ const users =
     },
 ]
 
-export class UserModel
+export class LoginModel
 {
 	constructor()
 	{
