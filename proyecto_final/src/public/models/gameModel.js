@@ -12,6 +12,8 @@ const users =
     },
 ]
 
+const BASE_URL = "http://localhost:3000"
+
 class GameModel
 {
 	constructor()
@@ -19,17 +21,35 @@ class GameModel
         this.is_authenticated = false;
  	}
 
-    logUser(username, password)
-    {
-        for (const user of users) {
-            if (user.username === username && user.password === password) {
+    async logUser(username, password) {
+        try {
+            const response = await fetch(`${BASE_URL}/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
                 this.is_authenticated = true;
+                
                 return true;
+            } else {
+                this.is_authenticated = false;
+                return false;
             }
+
+        } catch (error) {
+            console.error('Error logging in:', error);
+            this.is_authenticated = false;
+            return false;
         }
-    
-        return false;
-    }
+
+        
+}
 
     is_user_authenticated()
     {

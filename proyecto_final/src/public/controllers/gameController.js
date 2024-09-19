@@ -3,28 +3,32 @@ class GameController
     constructor(view, model)
     {
 
-        this.gameView = view;
-        this.gameModel = model;
+        this.innerView = view;
+        this.innerModel = model;
+        this.loginView = view.loginView;
     }
 
     start()
     {
+        this.connect();
+
         console.log("Im starting...")
     }
 
 	connect()
 	{
-        this.innerView.addEventListener('login', (event) =>
+        this.loginView.addEventListener('login', async (event) =>
         {
             const { username, password } = event.detail;
-            let loginResult = this.handleLogin(username, password);
+
+            let loginResult = await this.innerModel.logUser(username, password);
 
             if (loginResult)
             {
                 console.log("User logged");
             }
 
-            console.log(loginResult);
+            console.log("Login result: " + loginResult);
 
         } );
 	}
@@ -37,13 +41,6 @@ class GameController
 	disconnect()
 	{
 		//To-do...
-	}
-
-    handleLogin(username, password)
-	{
-		let loginResult = this.innerModel.logUser(username, password);
-
-        return loginResult;
 	}
 }
 
