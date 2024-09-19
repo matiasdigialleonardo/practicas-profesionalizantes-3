@@ -1,47 +1,34 @@
-class GameController
-{
-    constructor(view, model)
-    {
+import { LoginController } from './loginController.js'
+
+class GameController {
+    constructor(view, model) {
 
         this.innerView = view;
         this.innerModel = model;
-        this.loginView = view.loginView;
+        this.loginController = new LoginController(view.getViewMyName("login"), model)
     }
 
-    start()
-    {
-        this.connect();
+    start() {
+        this.loginController.connect();
+
+        this.innerModel.addEventListener("userLogged", () => {
+            this.innerView.renderView("login");
+        })
+
 
         console.log("Im starting...")
     }
 
-	connect()
-	{
-        this.loginView.addEventListener('login', async (event) =>
-        {
-            const { username, password } = event.detail;
 
-            let loginResult = await this.innerModel.logUser(username, password);
 
-            if (loginResult)
-            {
-                console.log("User logged");
-            }
 
-            console.log("Login result: " + loginResult);
+    is_user_authenticated() {
+        return this.innerModel.is_user_authenticated();
+    }
 
-        } );
-	}
-
-	is_user_authenticated()
-	{
-		return this.innerModel.is_user_authenticated();
-	}
-
-	disconnect()
-	{
-		//To-do...
-	}
+    disconnect() {
+        //To-do...
+    }
 }
 
 export { GameController };

@@ -1,25 +1,26 @@
 const users =
-[
-    {
-        id: 1,
-        username: "a",
-        password: "a",
-    },
-    {
-        id: 2,
-        username: "b",
-        password: "b",
-    },
-]
+    [
+        {
+            id: 1,
+            username: "a",
+            password: "a",
+        },
+        {
+            id: 2,
+            username: "b",
+            password: "b",
+        },
+    ]
 
 const BASE_URL = "http://localhost:3000"
 
-class GameModel
-{
-	constructor()
-	{
+class GameModel extends EventTarget {
+    constructor() {
+
+        super();
+
         this.is_authenticated = false;
- 	}
+    }
 
     async logUser(username, password) {
         try {
@@ -35,7 +36,11 @@ class GameModel
 
             if (response.ok) {
                 this.is_authenticated = true;
-                
+
+                this.dispatchEvent(new CustomEvent("userLogged", {}))
+
+
+
                 return true;
             } else {
                 this.is_authenticated = false;
@@ -48,11 +53,10 @@ class GameModel
             return false;
         }
 
-        
-}
 
-    is_user_authenticated()
-    {
+    }
+
+    is_user_authenticated() {
         return this.is_authenticated;
     }
 }

@@ -6,10 +6,8 @@ function removeAllChildNodes(parent) {
     }
 }
 
-class GameView extends HTMLElement
-{
-    constructor()
-    {
+class GameView extends HTMLElement {
+    constructor() {
         super();
 
         this.loginView = new LoginView();
@@ -17,13 +15,25 @@ class GameView extends HTMLElement
 
     }
 
-    // render( view )
-    // {
+    getViewMyName(viewName) {
+        switch (viewName) {
+            case 'login':
+                return this.loginView;
+            default:
+                return null;
+        }
+    }
 
-    //     removeAllChildNodes(this.view);
+    renderView(viewName) {
+        removeAllChildNodes(this);
 
-    //     this.view = new view;
-    // }
+        switch (viewName) {
+            case 'login':
+                this.appendChild(this.loginView);
+            default:
+                return null;
+        }
+    }
 }
 
 customElements.define('wc-gv', GameView);
