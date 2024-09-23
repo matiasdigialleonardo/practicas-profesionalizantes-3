@@ -2,14 +2,18 @@ export class LobbyView extends HTMLElement {
     constructor() {
         super();
 
-        let testText = document.createElement("div");
-        testText.innerText = "Test text.";
+        this.testBtn = document.createElement("button");
+        this.testBtn.innerText = "Send message";
 
-        this.appendChild(testText);
+        this.appendChild(this.testBtn);
 
     }
 
     connectedCallback() {
+        this.testBtn.addEventListener('click', () => {
+            const text = 'Example test';
+            this.dispatchEvent(new CustomEvent('userClickedBtn', { detail: text }));
+        }); 
 
     }
 

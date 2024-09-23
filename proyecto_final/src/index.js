@@ -12,7 +12,7 @@ const io = socketIO(server);
 app.set('port', process.env.PORT || 3000);
 
 // sockets
-require('./sockets')(io);
+// require('./sockets')(io);
 
 
 app.use(express.json());
@@ -32,6 +32,17 @@ app.post('/login', (req, res) => {
     }
 });
 
+
+io.on('connection', (socket) => {
+    console.log('A user connected');
+
+    // Listen for the messageEvent from the client
+    socket.on('messageEvent', (data) => {
+        console.log('Received message:', data.text);
+        console.log(socket.id);
+        // You can now handle the received message as needed
+    });
+});
 
 // starting the server
 server.listen(app.get('port'), () => {

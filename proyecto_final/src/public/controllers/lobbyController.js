@@ -8,7 +8,9 @@ class LobbyController
 
 	connect()
 	{
-
+		this.innerView.addEventListener('userClickedBtn', function(e) {
+			this.innerModel.emitMessage(e.detail)
+		}.bind(this));
 	}
 
 	is_user_authenticated()

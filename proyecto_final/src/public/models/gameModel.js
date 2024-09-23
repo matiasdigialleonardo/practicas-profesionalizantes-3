@@ -12,7 +12,7 @@ const users =
         },
     ]
 
-const BASE_URL = "http://localhost:3000"
+    const BASE_URL = "http://localhost:3000"
 
 class GameModel extends EventTarget {
     constructor() {
@@ -20,6 +20,7 @@ class GameModel extends EventTarget {
         super();
 
         this.is_authenticated = false;
+        this.connection = null;
     }
 
     async logUser(username, password) {
@@ -37,6 +38,7 @@ class GameModel extends EventTarget {
             if (response.ok) {
                 this.is_authenticated = true;
 
+                this.connection = io(BASE_URL);
                 this.dispatchEvent(new CustomEvent("userLogged", {}))
 
 
@@ -56,6 +58,14 @@ class GameModel extends EventTarget {
 
     }
 
+    emitMessage(text) {
+        if (this.connection) {
+            this.connection.emit('messageEvent', { text });
+        } else {
+            console.error('Socket connection not established.');
+        }
+    }
+    
     is_user_authenticated() {
         return this.is_authenticated;
     }

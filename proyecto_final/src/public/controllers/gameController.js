@@ -12,6 +12,7 @@ class GameController {
 
     start() {
         this.loginController.connect();
+        this.lobbyController.connect();
 
         this.innerModel.addEventListener("userLogged", () => {
             this.innerView.renderView("lobby");
