@@ -1,5 +1,6 @@
 import { LoginController } from './loginController.js'
 import { LobbyController } from './lobbyController.js'
+import { CombatController } from './combatController.js'
 
 class GameController {
     constructor(view, model) {
@@ -8,6 +9,7 @@ class GameController {
         this.innerModel = model;
         this.loginController = new LoginController(view.getViewMyName("login"), model)
         this.lobbyController = new LobbyController(view.getViewMyName("lobby"), model)
+        this.combatController = new CombatController(view.getViewMyName("combat"), model)
     }
 
     start() {

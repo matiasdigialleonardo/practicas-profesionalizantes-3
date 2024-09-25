@@ -1,5 +1,6 @@
 import { LoginView } from './loginView.js'
 import { LobbyView } from './lobbyView.js'
+import { CombatView } from './combatView.js'
 
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
@@ -13,6 +14,7 @@ class GameView extends HTMLElement {
 
         this.loginView = new LoginView();
         this.lobbyView = new LobbyView();
+        this.combatView = new CombatView();
         this.append(this.loginView);
 
     }
@@ -22,6 +24,8 @@ class GameView extends HTMLElement {
             case 'login':
                 return this.loginView;
             case 'lobby':
+                return this.lobbyView;
+            case 'combat':
                 return this.lobbyView;
             default:
                 return null;
@@ -36,6 +40,8 @@ class GameView extends HTMLElement {
                 this.appendChild(this.loginView);
             case 'lobby':
                 this.appendChild(this.lobbyView);
+            case 'combat':
+                this.appendChild(this.combatView);
             default:
                 return null;
         }

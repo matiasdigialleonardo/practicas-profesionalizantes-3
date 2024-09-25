@@ -14,6 +14,7 @@ app.set('port', process.env.PORT || 3000);
 // sockets
 // require('./sockets')(io);
 
+let usersConnected = [];
 
 app.use(express.json());
 
@@ -34,13 +35,22 @@ app.post('/login', (req, res) => {
 
 
 io.on('connection', (socket) => {
-    console.log('A user connected');
 
-    // Listen for the messageEvent from the client
+    if (usersConnected.length < 2)
+    {
+        usersConnected.push(socket.id);
+        console.log(usersConnected);
+    }
+
+    for (let user of usersConnected)
+    {
+        console.log(user);
+    }
+
+    // On receiving the message event, console log the data.
     socket.on('messageEvent', (data) => {
         console.log('Received message:', data.text);
         console.log(socket.id);
-        // You can now handle the received message as needed
     });
 });
 
