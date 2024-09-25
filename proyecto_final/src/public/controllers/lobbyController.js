@@ -11,6 +11,10 @@ class LobbyController
 		this.innerView.addEventListener('userClickedBtn', function(e) {
 			this.innerModel.emitMessage(e.detail)
 		}.bind(this));
+
+		this.innerView.addEventListener("playerPressedReadyBtn", function(e) {
+			this.innerModel.emitPlayerReadyEvent();
+		}.bind(this));
 	}
 
 	is_user_authenticated()

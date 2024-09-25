@@ -5,7 +5,11 @@ export class LobbyView extends HTMLElement {
         this.testBtn = document.createElement("button");
         this.testBtn.innerText = "Send message";
 
+        this.readyBtn = document.createElement("button");
+        this.readyBtn.innerText = "Ready";
+
         this.appendChild(this.testBtn);
+        this.appendChild(this.readyBtn);
 
     }
 
@@ -15,6 +19,10 @@ export class LobbyView extends HTMLElement {
             this.dispatchEvent(new CustomEvent('userClickedBtn', { detail: text }));
         }); 
 
+        this.readyBtn.addEventListener('click', () => {
+            console.log("pressed")
+            this.dispatchEvent(new CustomEvent('playerPressedReadyBtn', {}));
+        }); 
     }
 
     disconnectedCallback() {

@@ -38,7 +38,11 @@ io.on('connection', (socket) => {
 
     if (usersConnected.length < 2)
     {
-        usersConnected.push(socket.id);
+        usersConnected.push(
+            {   
+                "socket_id": socket.id,
+                "status": false,
+            });
         console.log(usersConnected);
     }
 
@@ -47,10 +51,23 @@ io.on('connection', (socket) => {
         console.log(user);
     }
 
-    // On receiving the message event, console log the data.
+    //On receiving the message event, console log the data.
     socket.on('messageEvent', (data) => {
         console.log('Received message:', data.text);
-        console.log(socket.id);
+        console.log(usersConnected);
+    });
+
+    socket.on('playerReady', () => {
+        const user = usersConnected.find(user => user.socket_id === socket.id); // check if the id matches
+    
+        if (user) {
+            console.log("Player ready");
+
+            user.status = true;
+
+        } else {
+            console.log("User not found");
+        }
     });
 });
 

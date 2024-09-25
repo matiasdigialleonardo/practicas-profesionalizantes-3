@@ -65,6 +65,14 @@ class GameModel extends EventTarget {
             console.error('Socket connection not established.');
         }
     }
+
+    emitPlayerReadyEvent() {
+        if (this.connection) {
+            this.connection.emit('playerReady', {});
+        } else {
+            console.error('Socket connection not established.');
+        }
+    }
     
     is_user_authenticated() {
         return this.is_authenticated;
