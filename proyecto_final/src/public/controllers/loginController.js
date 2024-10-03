@@ -12,15 +12,8 @@ class LoginController
         {
             const { username, password } = event.detail;
 
-            let loginResult = await this.innerModel.logUser(username, password);
-
-            if (loginResult)
-            {
-                console.log("User logged");
-            }
-
-            console.log("Login result: " + loginResult);
-
+            this.innerModel.logUser(username, password);
+            
         } );
 	}
 

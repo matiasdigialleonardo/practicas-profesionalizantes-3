@@ -11,8 +11,7 @@ function main()
 	const gameApplication = new GameApplication();
 
     document.body.appendChild(gameApplication);
-	
-
+    
 }
 
 window.onload = main;

@@ -1,26 +1,18 @@
-const users =
-    [
-        {
-            id: 1,
-            username: "a",
-            password: "a",
-        },
-        {
-            id: 2,
-            username: "b",
-            password: "b",
-        },
-    ]
-
-    const BASE_URL = "http://localhost:3000"
+const BASE_URL = "http://localhost:3000"
 
 class GameModel extends EventTarget {
     constructor() {
 
         super();
 
-        this.is_authenticated = false;
-        this.connection = null;
+        this.connectedPlayers = [];
+
+        // Array of connected users. Username.
+        // this.connectedPlayers = [];
+
+        // Send information with the player id.
+
+        this.connection = io(BASE_URL);
     }
 
     async logUser(username, password) {
@@ -35,23 +27,22 @@ class GameModel extends EventTarget {
 
             const data = await response.json();
 
+            // Check the response data to see if the user and password are ok.
+            // Response ok only says that the response was satisfactory.
             if (response.ok) {
-                this.is_authenticated = true;
 
-                this.connection = io(BASE_URL);
+                this.connectedPlayers.push({'username': username})
+                console.log(this.connectedPlayers);
                 this.dispatchEvent(new CustomEvent("userLogged", {}))
-
-
 
                 return true;
             } else {
-                this.is_authenticated = false;
                 return false;
             }
 
+        // Dispatch error informing about an invalid login (later).
         } catch (error) {
             console.error('Error logging in:', error);
-            this.is_authenticated = false;
             return false;
         }
 
