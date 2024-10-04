@@ -5,13 +5,6 @@ class GameModel extends EventTarget {
 
         super();
 
-        this.connectedPlayers = [];
-
-        // Array of connected users. Username.
-        // this.connectedPlayers = [];
-
-        // Send information with the player id.
-
         this.connection = io(BASE_URL);
     }
 
@@ -31,13 +24,8 @@ class GameModel extends EventTarget {
             // Response ok only says that the response was satisfactory.
             if (response.ok) {
 
-                this.connectedPlayers.push({'username': username})
-                console.log(this.connectedPlayers);
-                this.dispatchEvent(new CustomEvent("userLogged", {}))
-
-                return true;
-            } else {
-                return false;
+                this.dispatchEvent(new CustomEvent("userLogged", {}));
+                
             }
 
         // Dispatch error informing about an invalid login (later).
@@ -45,8 +33,6 @@ class GameModel extends EventTarget {
             console.error('Error logging in:', error);
             return false;
         }
-
-
     }
 
     emitMessage(text) {
@@ -63,10 +49,6 @@ class GameModel extends EventTarget {
         } else {
             console.error('Socket connection not established.');
         }
-    }
-    
-    is_user_authenticated() {
-        return this.is_authenticated;
     }
 }
 

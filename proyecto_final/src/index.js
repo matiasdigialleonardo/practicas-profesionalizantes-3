@@ -3,14 +3,6 @@ const path = require('path');
 const socketIO = require('socket.io');
 const http = require('http');
 
-// Initialization
-const app = express();
-const server = http.createServer(app);
-const io = socketIO(server);
-
-// settings
-app.set('port', process.env.PORT || 3000);
-
 // sockets
 // require('./sockets')(io);
 
@@ -18,77 +10,76 @@ const users =
 [
     {
         id: 1,
-        username: "a",
-        password: "a",
+        username: 'a',
+        password: 'a',
     },
     {
         id: 2,
-        username: "b",
-        password: "b",
+        username: 'b',
+        password: 'b',
     },
 ]
 
-let usersConnected = [];
+class GameModel {
+    constructor() {
+        // Initialization
+        this.app = express();
+        this.server = http.createServer(this.app);
+        this.io = socketIO(this.server);
+        this.app.use(express.json());
 
-app.use(express.json());
+        this.connectedPlayers = [];
 
+        // settings
+        this.app.set('port', process.env.PORT || 3000);
 
-// static files
-app.use(express.static(path.join((__dirname), 'public')));
+        // static files
+        this.app.use(express.static(path.join((__dirname), 'public')));
 
+        this.app.post('/login', (req, res) => {
+            const { username, password } = req.body;
 
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
+            const user = users.find(u => u.username === username && u.password === password);
 
-    const user = users.find(u => u.username === username && u.password === password);
+            if (user) {
+                this.connectedPlayers.push({'username': username})
+                console.log(this.connectedPlayers);
 
-    if (user) {
-        res.status(200).json({ message: 'Login successful' });
-    } else {
-        res.status(401).json({ message: 'Invalid credentials' });
-    }
-});
+                res.status(200).json({ message: 'Login successful' });
+            } else {
+                res.status(401).json({ message: 'Invalid credentials' });
+            }
+        });
 
-
-io.on('connection', (socket) => {
-
-    if (usersConnected.length < 2)
-    {
-        usersConnected.push(
-            {   
-                "socket_id": socket.id,
-                "status": false,
+        this.io.on('connection', (socket) => {
+                   
+            //On receiving the message event, console log the data.
+            socket.on('messageEvent', (data) => {
+                console.log('Received message:', data.text);
             });
-        console.log(usersConnected);
+        
+            socket.on('playerReady', () => {
+                const user = connectedPlayers.find(user => user.socket_id === socket.id);
+            
+                if (user) {
+                    console.log('Player ready');
+        
+                    user.status = true;
+        
+                } else {
+                    console.log('User not found');
+                }
+            });
+        });
     }
 
-    for (let user of usersConnected)
-    {
-        console.log("User socket id:" + user.socket_id);
+    run() {
+        this.server.listen(this.app.get('port'), () => {
+            console.log('Server on port 3000')
+        })
     }
+}
 
-    //On receiving the message event, console log the data.
-    socket.on('messageEvent', (data) => {
-        console.log('Received message:', data.text);
-        // console.log(usersConnected);
-    });
+let gamemodel = new GameModel();
 
-    socket.on('playerReady', () => {
-        // Check if user is inside usersConnected 
-        const user = usersConnected.find(user => user.socket_id === socket.id);
-    
-        if (user) {
-            console.log("Player ready");
-
-            user.status = true;
-
-        } else {
-            console.log("User not found");
-        }
-    });
-});
-
-// starting the server
-server.listen(app.get('port'), () => {
-    console.log('Server on port 3000')
-})
+gamemodel.run();

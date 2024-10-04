@@ -20,7 +20,6 @@ class GameController {
             this.innerView.renderView("lobby");
         })
 
-
         console.log("Im starting...")
     }
 
