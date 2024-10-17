@@ -57,19 +57,7 @@ class GameModel {
             socket.on('messageEvent', (data) => {
                 console.log('Received message:', data.text);
             });
-        
-            socket.on('playerReady', () => {
-                const user = connectedPlayers.find(user => user.socket_id === socket.id);
-            
-                if (user) {
-                    console.log('Player ready');
-        
-                    user.status = true;
-        
-                } else {
-                    console.log('User not found');
-                }
-            });
+    
         });
     }
 

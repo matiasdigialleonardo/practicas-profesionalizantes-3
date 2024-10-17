@@ -15,6 +15,10 @@ class GameView extends HTMLElement {
         this.loginView = new LoginView();
         this.lobbyView = new LobbyView();
         this.combatView = new CombatView();
+        //playerview
+        //this.canvas = document.createElementCanvas;
+        //this.context = this.canvas.
+        //Definir tamanio del canvas.
         this.append(this.loginView);
 
     }
