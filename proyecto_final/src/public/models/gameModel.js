@@ -50,6 +50,8 @@ class GameModel extends EventTarget {
             console.error('Socket connection not established.');
         }
     }
+
+    
 }
 
 export { GameModel };

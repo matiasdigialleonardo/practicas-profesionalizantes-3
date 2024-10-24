@@ -20,6 +20,14 @@ class GameController {
             this.innerView.renderView("lobby");
         })
 
+        this.innerView.addEventListener("userLogged", () => {
+            this.innerView.renderView("combat");
+        })
+
+        this.innerView.addEventListener("playerPressedStartBtn", () => {
+            this.innerView.renderView("combat");
+        })
+
         console.log("Im starting...")
     }
 
