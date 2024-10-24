@@ -1,6 +1,7 @@
 import { LoginView } from './loginView.js'
 import { LobbyView } from './lobbyView.js'
 import { CombatView } from './combatView.js'
+import { playerView } from './playerView.js'
 
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
@@ -15,10 +16,14 @@ class GameView extends HTMLElement {
         this.loginView = new LoginView();
         this.lobbyView = new LobbyView();
         this.combatView = new CombatView();
-        //playerview
-        //this.canvas = document.createElementCanvas;
-        //this.context = this.canvas.
-        //Definir tamanio del canvas.
+        this.playerView = new playerView();
+
+        this.renderObjects = [this.playerView];
+
+        this.canvas = document.createElement("canvas");
+        this.context = this.canvas.getContext("2d");
+
+        // To do Definir tamanio del canvas.
         this.append(this.loginView);
 
     }
@@ -30,9 +35,7 @@ class GameView extends HTMLElement {
             case 'lobby':
                 return this.lobbyView;
             case 'combat':
-                return this.lobbyView;
-            default:
-                return null;
+                return this.combatView;
         }
     }
 
@@ -46,10 +49,49 @@ class GameView extends HTMLElement {
                 this.appendChild(this.lobbyView);
             case 'combat':
                 this.appendChild(this.combatView);
-            default:
-                return null;
         }
     }
+
+    render( drawingContext, object )
+    {
+        //Limpiando todo
+        drawingContext.clearRect(0, 0, drawingContext.canvas.width, drawingContext.canvas.height);
+    
+        object.tickCount += 1;
+            
+        if (object.tickCount > object.ticksPerFrame) {
+            object.tickCount = 0;
+    
+            if (object.frameIndex < object.frames - 1) {
+                object.frameIndex += 1;
+            } else {
+                object.frameIndex = 0;
+            }
+        }
+        
+         drawingContext.drawImage(
+                object.image,
+                object.frameIndex * object.width, // Coordenada del eje x de la esquina superior izquierda
+                object.row * object.height, // Coordenada del eje y de la esquina superior izquierda
+                object.width, // Ancho del rectángulo
+                object.height, // Altura del rectángulo
+                object.x, // Posición x
+                object.y,// Posición y
+                object.width, // Ancho del cuadro
+                object.height // Alto del cuadro
+            );
+    
+        requestAnimationFrame(() => render(drawingContext, object));  
+    }
+
+    update()
+    {
+        for (let object of this.renderObjects)
+        {
+            this.render(this.context, object);
+        }
+    }
+
 }
 
 customElements.define('wc-gv', GameView);
