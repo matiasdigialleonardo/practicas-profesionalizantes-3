@@ -1,5 +1,3 @@
-const Player = require('./Player'); // Assuming you have a Player class
-
 function handleSocketConnection(io) {
   var line_history = [];
 
