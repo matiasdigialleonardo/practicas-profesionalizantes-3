@@ -2,8 +2,8 @@ class CombatController
 {
     constructor(view, model)
     {
-        this.innerView = view;
-        this.innerModel = model;
+        this.view = view;
+        this.model = model;
     }
 
 

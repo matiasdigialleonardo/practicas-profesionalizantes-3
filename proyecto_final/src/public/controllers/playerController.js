@@ -9,31 +9,31 @@ class PlayerController
     init()
     {
         this.view.update( this.model.player.getCurrentState() );
-		this.innerModel.addEventListener('moveup', this.onmoveup.bind(this) );
-		this.innerModel.addEventListener('moveright', this.onmoveright.bind(this) );
-		this.innerModel.addEventListener('moveleft', this.onmoveleft.bind(this) );
-		this.innerModel.addEventListener('movedown', this.onmovedown.bind(this) );
+		this.model.addEventListener('moveup', this.onmoveup.bind(this) );
+		this.model.addEventListener('moveright', this.onmoveright.bind(this) );
+		this.model.addEventListener('moveleft', this.onmoveleft.bind(this) );
+		this.model.addEventListener('movedown', this.onmovedown.bind(this) );
 
     }
 
 	onmoveup(event)
 	{
-		this.innerView.state = this.innerModel.state;
+		this.view.state = this.model.state;
 	}
 
 	onmoveright(event)
 	{
-		this.innerView.state = this.innerModel.state;
+		this.view.state = this.model.state;
 	}
 
 	onmoveleft(event)
 	{
-		this.innerView.state = this.innerModel.state;
+		this.view.state = this.model.state;
 	}
 
 	onmovedown(event)
 	{
-		this.innerView.state = this.innerModel.state;
+		this.view.state = this.model.state;
 	}
    
     runStep()

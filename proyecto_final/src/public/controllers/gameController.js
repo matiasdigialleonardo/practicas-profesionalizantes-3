@@ -11,8 +11,8 @@ import { KeyboardController } from './keyboardController.js'
 class GameController {
     constructor(view, model) {
 
-        this.innerView = view;
-        this.innerModel = model;
+        this.view = view;
+        this.model = model;
         this.loginController = new LoginController(view.getViewMyName("login"), model);
         this.lobbyController = new LobbyController(view.getViewMyName("lobby"), model);
         this.combatController = new CombatController(view.getViewMyName("combat"), model);
@@ -23,15 +23,15 @@ class GameController {
         this.lobbyController.init();
         this.keyboardController.init();
 
-        this.innerModel.addEventListener("userLogged", () => {
-            this.innerView.renderView("lobby");
+        this.model.addEventListener("userLogged", () => {
+            this.view.renderView("lobby");
         })
 
-        this.innerModel.addEventListener("Player ready", () => {
-            this.innerView.renderView("combat");
+        this.model.addEventListener("Player ready", () => {
+            this.view.renderView("combat");
         })
 
-        document.body.appendChild(this.innerView);
+        document.body.appendChild(this.view);
 
         // Consultar al modelo el estado inicial del jugador
         // this.playerController.askForPlayerState();
@@ -40,7 +40,7 @@ class GameController {
 
     start() {
 
-        requestAnimationFrame(() => this.innerView.update());  
+        requestAnimationFrame(() => this.view.update());  
 
         console.log("Im starting...")
     }

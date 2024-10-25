@@ -2,24 +2,24 @@ class LoginController
 {
     constructor(view, model)
     {
-        this.innerView = view;
-        this.innerModel = model;
+        this.view = view;
+        this.model = model;
     }
 
 	init()
 	{
-        this.innerView.addEventListener('login', async (event) =>
+        this.view.addEventListener('login', async (event) =>
         {
             const { username, password } = event.detail;
 
-            this.innerModel.logUser(username, password);
+            this.model.logUser(username, password);
             
         } );
 	}
 
 	is_user_authenticated()
 	{
-		return this.innerModel.is_user_authenticated();
+		return this.model.is_user_authenticated();
 	}
 
 	disconnect()

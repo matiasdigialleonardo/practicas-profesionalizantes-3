@@ -1,9 +1,9 @@
 class KeyboardController
 {
-	constructor( model, view ) 
+	constructor( view, model ) 
 	{
-		this.innerModel = model;
-		this.innerView = view;
+		this.model = model;
+		this.view = view;
 
 		this.keyCode = false;
 		this.key = false;
@@ -24,10 +24,10 @@ class KeyboardController
 	onkeydown(event)
 	{
 		console.log('keypress:' + this.keyCode);
-		if (this.key && this.keyCode == 37) {this.innerModel.moveLeft(); };
-	    if (this.key && this.keyCode == 39) {this.innerModel.moveRight(); };
-	    if (this.key && this.keyCode == 38) {this.innerModel.moveUp(); };
-	    if (this.key && this.keyCode == 40) {this.innerModel.moveDown(); };
+		if (this.key && this.keyCode == 37) {this.model.player.moveLeft(); };
+	    if (this.key && this.keyCode == 39) {this.model.player.moveRight(); };
+	    if (this.key && this.keyCode == 38) {this.model.player.moveUp(); };
+	    if (this.key && this.keyCode == 40) {this.model.player.moveDown(); };
 	}
 }
 
