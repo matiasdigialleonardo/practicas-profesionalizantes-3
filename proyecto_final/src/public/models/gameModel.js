@@ -35,6 +35,11 @@ class GameModel extends EventTarget {
         }
     }
 
+    playerPressedStartBtn()
+    {
+        this.dispatchEvent(new CustomEvent("Player ready", {}));
+    }
+
     emitMessage(text) {
         if (this.connection) {
             this.connection.emit('messageEvent', { text });
@@ -50,6 +55,7 @@ class GameModel extends EventTarget {
             console.error('Socket connection not established.');
         }
     }
+
 
     
 }

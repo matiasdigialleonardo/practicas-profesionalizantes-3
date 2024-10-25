@@ -7,7 +7,7 @@ class playerView extends EventTarget
        
         this.image = new Image();
         this.image.onload = () => {this.dispatchEvent( new CustomEvent('imgloaded'))};
-        this.image.src = 'images/sonic3_spritesheet.png';
+        this.image.src = '../images/sonic3_spritesheet.png';
         
         //Posición (x,y) del contexto de dibujo
         this.x = 20;

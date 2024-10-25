@@ -10,9 +10,7 @@ class GameController {
         this.loginController = new LoginController(view.getViewMyName("login"), model)
         this.lobbyController = new LobbyController(view.getViewMyName("lobby"), model)
         this.combatController = new CombatController(view.getViewMyName("combat"), model)
-    }
 
-    start() {
         this.loginController.connect();
         this.lobbyController.connect();
 
@@ -20,13 +18,17 @@ class GameController {
             this.innerView.renderView("lobby");
         })
 
-        this.innerView.addEventListener("userLogged", () => {
+        this.innerModel.addEventListener("Player ready", () => {
             this.innerView.renderView("combat");
         })
 
-        this.innerView.addEventListener("playerPressedStartBtn", () => {
-            this.innerView.renderView("combat");
-        })
+        document.body.appendChild(this.innerView);
+
+    }
+
+    start() {
+
+        requestAnimationFrame(() => this.innerView.update());  
 
         console.log("Im starting...")
     }
