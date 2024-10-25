@@ -2,6 +2,7 @@ import { LoginController } from './loginController.js'
 import { LobbyController } from './lobbyController.js'
 import { CombatController } from './combatController.js'
 import { PlayerController } from './playerController.js'
+import { KeyboardController } from './keyboardController.js'
 
 /*
     El controlador responde a los eventos que producen la vista (interaccion grafica) y en el modelo.
@@ -16,9 +17,11 @@ class GameController {
         this.lobbyController = new LobbyController(view.getViewMyName("lobby"), model);
         this.combatController = new CombatController(view.getViewMyName("combat"), model);
         this.playerController = new PlayerController(view.getViewMyName("player"), model);
+        this.keyboardController = new KeyboardController(view.getViewMyName("player"), model);
 
         this.loginController.init();
-        this.lobbyController.connect();
+        this.lobbyController.init();
+        this.keyboardController.init();
 
         this.innerModel.addEventListener("userLogged", () => {
             this.innerView.renderView("lobby");

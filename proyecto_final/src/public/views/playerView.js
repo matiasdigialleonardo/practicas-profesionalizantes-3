@@ -15,6 +15,9 @@ class playerView extends EventTarget
         this.x = 20;
         this.y = 20;
         
+		this.delta_x = 20;
+    	this.delta_y = 10;
+
         //Tamaño del cuadro (ancho, alto)
         this.width = 114; 
         this.height = 120;
@@ -36,6 +39,16 @@ class playerView extends EventTarget
 
         this.isInitialized = true;
     }
+
+	// connectedCallback() 
+    // {
+    //     this.addEventListener('keydown', this.handleKeyDown.bind(this));
+	// }
+
+    // handleKeyDown(event)
+    // {
+    //     if (event.keyCode == 39) this.dispatchEvent(new CustomEvent('moveRight', {}));
+    // }
 
     update( playerState )
     {

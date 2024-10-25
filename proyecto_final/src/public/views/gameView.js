@@ -28,9 +28,7 @@ class GameView extends HTMLElement {
         canvas.style = "border:1px solid black";
         canvas.width = 800;
         canvas.height = 600;
-
-
-
+        
         this.combatView.append(canvas);
 
         // To do Definir tamanio del canvas.

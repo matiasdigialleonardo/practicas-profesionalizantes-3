@@ -24,6 +24,19 @@ class PlayerModel
     {
         this.innerState = 'idle';
     }
+
+    moveLeft()
+    {
+        this.state.position_x -= this.delta_x;
+        this.dispatchEvent( new CustomEvent('moveleft') );
+    }
+
+    moveRight()
+    {
+        this.state.position_x += this.delta_x;
+        this.dispatchEvent( new CustomEvent('moveright') );
+    }
+
 }
 
 export { PlayerModel };

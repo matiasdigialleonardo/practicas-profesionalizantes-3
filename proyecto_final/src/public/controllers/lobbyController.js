@@ -6,7 +6,7 @@ class LobbyController
         this.innerModel = model;
     }
 
-	connect()
+	init()
 	{
 		this.innerView.addEventListener('userClickedBtn', function(e) {
 			this.innerModel.emitMessage(e.detail)
