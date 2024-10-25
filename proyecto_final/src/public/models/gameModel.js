@@ -1,4 +1,10 @@
 const BASE_URL = "http://localhost:3000"
+import { PlayerModel } from './playerModel.js'
+
+/* 
+    Here we defined stuff like scores, logic on how to game is won and doesnt have any information
+    about the view or the controller.
+*/
 
 class GameModel extends EventTarget {
     constructor() {
@@ -6,6 +12,8 @@ class GameModel extends EventTarget {
         super();
 
         this.connection = io(BASE_URL);
+        this.player = new PlayerModel();
+        
     }
 
     async logUser(username, password) {

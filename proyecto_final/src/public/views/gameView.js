@@ -13,6 +13,8 @@ class GameView extends HTMLElement {
     constructor() {
         super();
 
+        // En algun lugar de la vista se va a manejar que esta haciendo el sonic.
+
         this.loginView = new LoginView();
         this.lobbyView = new LobbyView();
         this.combatView = new CombatView();

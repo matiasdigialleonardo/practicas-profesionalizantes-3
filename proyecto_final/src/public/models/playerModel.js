@@ -1,4 +1,4 @@
-class playerModel
+class PlayerModel
 {
 	constructor()
     {
@@ -26,4 +26,4 @@ class playerModel
     }
 }
 
-export { playerModel };
+export { PlayerModel };

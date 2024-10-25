@@ -1,5 +1,7 @@
 class playerView extends EventTarget
 {
+    //Aca agarramos el evento de que se presiono una tecla y sacamos otro evento para moverlo.
+
 	constructor()
     {
         //Imagen que contiene la secuencia de cuadros
@@ -27,7 +29,7 @@ class playerView extends EventTarget
         this.row = 0; 
         
         //Velocidad de la animación
-        this.ticksPerFrame = 4; 
+        this.ticksPerFrame = 40; 
         
         //Tiempo transcurrido
         this.tickCount = 0;

@@ -1,4 +1,4 @@
-class playerController
+class PlayerController
 {
 	constructor(model, view)
     {
@@ -8,7 +8,8 @@ class playerController
 
     init()
     {
-        this.view.update( this.model.getCurrentState() );      
+        this.view.update( this.model.player.getCurrentState() );
+
     }
    
     runStep()
@@ -19,4 +20,4 @@ class playerController
 
 }
 
-export { playerController };
+export { PlayerController };

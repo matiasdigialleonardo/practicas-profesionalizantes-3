@@ -6,7 +6,7 @@ class LoginController
         this.innerModel = model;
     }
 
-	connect()
+	init()
 	{
         this.innerView.addEventListener('login', async (event) =>
         {
