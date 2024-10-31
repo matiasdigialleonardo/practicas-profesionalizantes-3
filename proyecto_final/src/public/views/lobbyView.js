@@ -27,9 +27,13 @@ export class LobbyView extends HTMLElement {
             console.log("pressed")
             this.dispatchEvent(new CustomEvent('playerPressedReadyBtn', {}));
         });
-        
+
         this.startBtn.addEventListener('click', () => {
             this.dispatchEvent(new CustomEvent('playerPressedStartBtn', {}));
+        });
+        
+        this.startBtn.addEventListener('click', () => {
+            this.dispatchEvent(new CustomEvent('combatStarted', {}));
         }); 
     }
 

@@ -40,16 +40,6 @@ class playerView extends EventTarget
         this.isInitialized = true;
     }
 
-	// connectedCallback() 
-    // {
-    //     this.addEventListener('keydown', this.handleKeyDown.bind(this));
-	// }
-
-    // handleKeyDown(event)
-    // {
-    //     if (event.keyCode == 39) this.dispatchEvent(new CustomEvent('moveRight', {}));
-    // }
-
     update( playerState )
     {
         

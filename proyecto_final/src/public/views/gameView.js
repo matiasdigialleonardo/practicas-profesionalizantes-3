@@ -17,19 +17,26 @@ class GameView extends HTMLElement {
 
         this.loginView = new LoginView();
         this.lobbyView = new LobbyView();
-        this.combatView = new CombatView();
+        // This should be in the controller
+        this.lobbyView.addEventListener("combatStarted", () => {
+            renderView("combat");
+            // removeAllChildNodes(this);
+
+            // new CombatView();
+        })
+        // this.combatView = new CombatView();
 
         this.playerView = new playerView();
         this.renderObjects = [this.playerView];
 
-        let canvas = document.createElement("canvas");
-        this.context = canvas.getContext("2d");
+        this.canvas = document.createElement("canvas");
+        this.context = this.canvas.getContext("2d");
 
-        canvas.style = "border:1px solid black";
-        canvas.width = 800;
-        canvas.height = 600;
+        this.canvas.style = "border:1px solid black";
+        this.canvas.width = 800;
+        this.canvas.height = 600;
         
-        this.combatView.append(canvas);
+
 
         // To do Definir tamanio del canvas.
         this.append(this.loginView);
@@ -58,7 +65,9 @@ class GameView extends HTMLElement {
             case 'lobby':
                 this.appendChild(this.lobbyView);
             case 'combat':
-                this.appendChild(this.combatView);
+                let combatView = new CombatView();
+                this.appendChild(combatView);
+                combatView.append(this.canvas);
         }
     }
 
