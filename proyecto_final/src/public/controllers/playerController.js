@@ -1,44 +1,40 @@
 class PlayerController
 {
-	constructor(model, view)
+	constructor(view, model)
     {
+		this.view = view;
         this.model = model;
-        this.view = view;
     }
 
     init()
     {
         this.view.update( this.model.player.getCurrentState() );
-		this.model.addEventListener('moveup', this.onmoveup.bind(this) );
-		this.model.addEventListener('moveright', this.onmoveright.bind(this) );
-		this.model.addEventListener('moveleft', this.onmoveleft.bind(this) );
-		this.model.addEventListener('movedown', this.onmovedown.bind(this) );
+		// this.model.addEventListener('moveup', this.onmoveup.bind(this) );
+		// this.model.addEventListener('moveright', this.onmoveright.bind(this) );
+		// this.model.addEventListener('moveleft', this.view.x++ );
+		// this.model.addEventListener('movedown', this.onmovedown.bind(this) );
 
     }
 
-	onmoveup(event)
+	moveRight()
 	{
-		this.view.state = this.model.state;
+		//this.view.update( this.model.player.getCurrentState() );
+		this.view.x += this.view.delta_x;
 	}
 
-	onmoveright(event)
+	moveLeft()
 	{
-		this.view.state = this.model.state;
+		this.view.x -= this.view.delta_x;
 	}
 
-	onmoveleft(event)
+	moveUp()
 	{
-		this.view.state = this.model.state;
-	}
-
-	onmovedown(event)
-	{
-		this.view.state = this.model.state;
+		this.view.y -= this.view.delta_y;
 	}
    
-    runStep()
+    moveDown()
     {
-        this.view.update( this.model.getCurrentState() );
+		this.view.y += this.view.delta_y;
     }
    
 

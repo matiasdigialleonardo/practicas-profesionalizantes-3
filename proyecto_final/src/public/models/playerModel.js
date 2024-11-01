@@ -1,8 +1,9 @@
-class PlayerModel
+class PlayerModel extends EventTarget
 {
 	constructor()
     {
-        this.innerState = 'idle';
+        super();
+        this.innerState = 'walking';
     }
 
     getCurrentState()
@@ -27,14 +28,24 @@ class PlayerModel
 
     moveLeft()
     {
-        this.state.position_x -= this.delta_x;
         this.dispatchEvent( new CustomEvent('moveleft') );
+        this.walk();
     }
 
     moveRight()
     {
-        this.state.position_x += this.delta_x;
         this.dispatchEvent( new CustomEvent('moveright') );
+        this.walk();
+    }
+
+    moveUp()
+    {
+        this.dispatchEvent( new CustomEvent('moveup') );
+    }
+
+    moveDown()
+    {
+        this.dispatchEvent( new CustomEvent('movedown') );
     }
 
 }

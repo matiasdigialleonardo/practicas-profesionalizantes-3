@@ -21,7 +21,9 @@ class GameController {
 
         this.loginController.init();
         this.lobbyController.init();
+        this.playerController.init();
         this.keyboardController.init();
+
 
         this.model.addEventListener("userLogged", () => {
             this.view.renderView("lobby");
@@ -30,6 +32,22 @@ class GameController {
         this.model.addEventListener("Player ready", () => {
             this.view.renderView("combat");
         })
+
+        this.model.player.addEventListener("moveleft", () => {
+            this.playerController.moveLeft();
+        });
+
+        this.model.player.addEventListener("moveright", () => {
+            this.playerController.moveRight();
+        });
+
+        this.model.player.addEventListener("moveup", () => {
+            this.playerController.moveUp();
+        });
+
+        this.model.player.addEventListener("movedown", () => {
+            this.playerController.moveDown();
+        });
 
         document.body.appendChild(this.view);
 

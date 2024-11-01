@@ -53,6 +53,8 @@ class GameView extends HTMLElement {
                 return this.lobbyView;
             case 'combat':
                 return this.combatView;
+            case 'player':
+                return this.playerView;
         }
     }
 

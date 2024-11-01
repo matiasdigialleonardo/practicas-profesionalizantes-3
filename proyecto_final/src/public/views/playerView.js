@@ -42,7 +42,6 @@ class playerView extends EventTarget
 
     update( playerState )
     {
-        
         if ( this.isInitialized == true )
         {
             console.log(playerState);
@@ -59,7 +58,7 @@ class playerView extends EventTarget
                 this.frames = 8;
                 this.frameIndex = 0;
                 this.row = 1;
-                this.ticksPerFrame = 4;
+                this.ticksPerFrame = 30;
             }
 
             if ( playerState == 'running')
