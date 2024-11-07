@@ -42,16 +42,16 @@ class GameView extends HTMLElement {
             { x: 0, y: 0, width: 20, height: this.canvas.height },
             { x: this.canvas.width - 20, y: 0, width: 20, height: this.canvas.height },
 
-            // { x: 50, y: 150, width: 150, height: 20 },
+            { x: 0, y: this.playerView.height + 20, width: 150, height: 20 },
             // { x: 50, y: 250, width: 200, height: 20 },
             // { x: 150, y: 350, width: 200, height: 20 },
             // { x: 50, y: 450, width: 200, height: 20 },
             
             // // Vertical Walls
-            { x: 50, y: 50, width: 20, height: 200 },
-            { x: 250, y: 50, width: 20, height: 200 },
-            { x: 50, y: 250, width: 20, height: 200 },
-            { x: 250, y: 250, width: 20, height: 200 },
+            // { x: 50, y: 50, width: 20, height: 200 },
+            // { x: 250, y: 50, width: 20, height: 200 },
+            // { x: 50, y: 250, width: 20, height: 200 },
+            // { x: 250, y: 250, width: 20, height: 200 },
             
             // // Additional walls to create dead-ends and pathways
             // { x: 150, y: 100, width: 20, height: 100 },

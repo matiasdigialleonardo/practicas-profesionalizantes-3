@@ -12,8 +12,8 @@ class playerView extends EventTarget
         this.image.src = '../images/sonic3_spritesheet.png';
         
         //Posición (x,y) del contexto de dibujo
-        this.x = 400;
-        this.y = 20;
+        this.x = 30;
+        this.y = 30;
         
 		this.delta_x = 20;
     	this.delta_y = 10;
