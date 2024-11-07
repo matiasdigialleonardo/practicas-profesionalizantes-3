@@ -18,5 +18,4 @@ class GameApplication
 
 }
 
-
 export { GameApplication };

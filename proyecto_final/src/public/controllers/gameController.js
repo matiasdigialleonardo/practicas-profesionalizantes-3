@@ -1,7 +1,6 @@
 import { LoginController } from './loginController.js'
 import { LobbyController } from './lobbyController.js'
 import { CombatController } from './combatController.js'
-import { PlayerController } from './playerController.js'
 import { KeyboardController } from './keyboardController.js'
 
 /*
@@ -16,12 +15,10 @@ class GameController {
         this.loginController = new LoginController(view.getViewMyName("login"), model);
         this.lobbyController = new LobbyController(view.getViewMyName("lobby"), model);
         this.combatController = new CombatController(view.getViewMyName("combat"), model);
-        this.playerController = new PlayerController(view.getViewMyName("player"), model);
         this.keyboardController = new KeyboardController(view.getViewMyName("player"), model);
 
         this.loginController.init();
         this.lobbyController.init();
-        this.playerController.init();
         this.keyboardController.init();
 
 
@@ -34,19 +31,35 @@ class GameController {
         })
 
         this.model.player.addEventListener("moveleft", () => {
-            this.playerController.moveLeft();
+            //this.view.playerView.x -= this.view.playerView.delta_x;
+
+            if (!this.view.checkCollision(this.view.playerView.x - this.view.playerView.delta_x, this.view.playerView.y)) {
+                this.view.playerView.x -= this.view.playerView.delta_x;
+            }
         });
 
         this.model.player.addEventListener("moveright", () => {
-            this.playerController.moveRight();
+            // this.view.playerView.x += this.view.playerView.delta_x;
+
+            if (!this.view.checkCollision(this.view.playerView.x + this.view.playerView.delta_x, this.view.playerView.y)) {
+                this.view.playerView.x += this.view.playerView.delta_x;
+            }
         });
 
         this.model.player.addEventListener("moveup", () => {
-            this.playerController.moveUp();
+            // this.view.playerView.y -= this.view.playerView.delta_y;
+
+            if (!this.view.checkCollision(this.view.playerView.x, this.view.playerView.y - this.view.playerView.delta_y)) {
+                this.view.playerView.y -= this.view.playerView.delta_y;
+            }
         });
 
         this.model.player.addEventListener("movedown", () => {
-            this.playerController.moveDown();
+            // this.view.playerView.y += this.view.playerView.delta_y;
+
+            if (!this.view.checkCollision(this.view.playerView.x, this.view.playerView.y + this.view.playerView.delta_y)) {
+                this.view.playerView.y += this.view.playerView.delta_y;
+            }
         });
 
         document.body.appendChild(this.view);

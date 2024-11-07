@@ -54,4 +54,4 @@ export class LobbyView extends HTMLElement {
     }
 }
 
-customElements.define('x-app-view', LobbyView);
+customElements.define('x-app-lobbyview', LobbyView);

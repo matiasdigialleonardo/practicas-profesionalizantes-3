@@ -29,13 +29,11 @@ class PlayerModel extends EventTarget
     moveLeft()
     {
         this.dispatchEvent( new CustomEvent('moveleft') );
-        this.walk();
     }
 
     moveRight()
     {
         this.dispatchEvent( new CustomEvent('moveright') );
-        this.walk();
     }
 
     moveUp()
