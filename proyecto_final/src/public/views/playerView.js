@@ -12,8 +12,8 @@ class playerView extends EventTarget
         this.image.src = '../images/sonic3_spritesheet.png';
         
         //Posición (x,y) del contexto de dibujo
-        this.x = 30;
-        this.y = 30;
+        this.x = 40;
+        this.y = 20;
         
 		this.delta_x = 20;
     	this.delta_y = 10;
@@ -29,10 +29,10 @@ class playerView extends EventTarget
         this.frameIndex = 0; 
         
         //Número de fila que posee los cuadros
-        this.row = 0; 
+        this.row = 1; 
         
         //Velocidad de la animación
-        this.ticksPerFrame = 40; 
+        this.ticksPerFrame = 30; 
         
         //Tiempo transcurrido
         this.tickCount = 0;

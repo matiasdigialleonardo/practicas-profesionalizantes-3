@@ -7,6 +7,9 @@ export class LoginView extends HTMLElement {
 		this._loginBtn = document.createElement("button");
 		this._loginBtn.innerText = "Ingresar";
 
+		this.usernameInput.value = "a";
+		this.passwordInput.value = "a";
+
 		this.appendChild(this.usernameInput)
 		this.appendChild(this.passwordInput)
 		this.appendChild(this._loginBtn)
