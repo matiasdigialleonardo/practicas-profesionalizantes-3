@@ -2,6 +2,7 @@ import { LoginView } from './loginView.js'
 import { LobbyView } from './lobbyView.js'
 import { CombatView } from './combatView.js'
 import { playerView } from './playerView.js'
+import { PortalView } from './portalView.js'
 
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
@@ -22,8 +23,9 @@ class GameView extends HTMLElement {
         })
 
         this.playerView = new playerView();
+        this.portalView = new PortalView();
 
-        this.renderObjects = [this.playerView];
+        this.renderObjects = [this.playerView, this.portalView];
 
         this.canvas = document.createElement("canvas");
         this.context = this.canvas.getContext("2d");
@@ -32,8 +34,31 @@ class GameView extends HTMLElement {
         this.canvas.width = 1800;
         this.canvas.height = 800;
         
-        this.renderView("login");
+        this.renderView("combat");
 
+        // Laberinto 1
+        // this.rectangles = [
+        //     // Outer walls
+        //     { x: 0, y: 0, width: this.canvas.width, height: 20 },
+        //     { x: 0, y: this.canvas.height - 20, width: this.canvas.width, height: 20 },
+        //     { x: 0, y: 0, width: 20, height: this.canvas.height },
+        //     { x: this.canvas.width - 20, y: 0, width: 20, height: this.canvas.height },
+
+        //     // Horizontal Walls
+        //     { x: 0, y: 150, width: this.canvas.width - 200, height: 20 },
+        //     { x: 210, y: 350, width: 200, height: 20 },
+        //     { x: 0, y: 450, width: 200, height: 20 },
+        //     { x: 650, y: 350, width: 1200, height: 20 },
+        //     { x: 200, y: 550, width: 600, height: 20 },
+        //     { x: 1000, y: 550, width: 600, height: 20 },
+            
+        //     // Vertical Walls
+        //     { x: 200, y: 350, width: 20, height: 200 },
+        //     { x: 1000, y: 350, width: 20, height: 200 },
+
+        // ];
+
+        // Laberinto 2
         this.rectangles = [
             // Outer walls
             { x: 0, y: 0, width: this.canvas.width, height: 20 },
@@ -42,16 +67,26 @@ class GameView extends HTMLElement {
             { x: this.canvas.width - 20, y: 0, width: 20, height: this.canvas.height },
 
             // Horizontal Walls
-            { x: 0, y: 150, width: this.canvas.width - 200, height: 20 },
-            { x: 210, y: 350, width: 200, height: 20 },
-            { x: 0, y: 450, width: 200, height: 20 },
-            { x: 650, y: 350, width: 1200, height: 20 },
-            { x: 200, y: 550, width: 600, height: 20 },
-            { x: 1000, y: 550, width: 1200, height: 20 },
+            { x: 340, y: 150, width: 1300, height: 20 },
+            { x: 340, y: 200, width: 1300, height: 20 },
+            { x: 500, y: 350, width: 400, height: 20 },
+            { x: 1200, y: 350, width: 280, height: 20 },
+            { x: 900, y: 480, width: 577, height: 20 },
+            { x: 340, y: 550, width: 210, height: 20 },
+            { x: 1050, y: 630, width: 580, height: 20 },
             
             // Vertical Walls
-            { x: 200, y: 350, width: 20, height: 200 },
-            { x: 1000, y: 350, width: 20, height: 200 },
+            { x: 160, y: 0, width: 20, height: 650 },
+            { x: 340, y: 150, width: 20, height: 420 },
+            { x: 380, y: 550, width: 20, height: 650 },
+            { x: 700, y: 350, width: 20, height: 300 },
+            { x: 500, y: 550, width: 20, height: 650 },
+            { x: 900, y: 350, width: 20, height: 150 },
+            { x: 1050, y: 150, width: 20, height: 200 },
+            { x: 900, y: 500, width: 20, height: 650 },
+            { x: 1200, y: 370, width: 20, height: 130 },
+            { x: 1470, y: 350, width: 20, height: 150 },
+            { x: 1620, y: 150, width: 20, height: 500 },
 
         ];
 
@@ -139,8 +174,8 @@ class GameView extends HTMLElement {
                 object.height, // Altura del rectángulo
                 object.x, // Posición x
                 object.y,// Posición y
-                object.width, // Ancho del cuadro
-                object.height // Alto del cuadro
+                object.width * object.scaleX, // Ancho del cuadro
+                object.height * object.scaleY // Alto del cuadro
             );
     }
 

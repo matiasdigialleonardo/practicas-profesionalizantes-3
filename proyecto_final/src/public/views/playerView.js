@@ -37,6 +37,9 @@ class playerView extends EventTarget
         //Tiempo transcurrido
         this.tickCount = 0;
 
+        this.scaleX = 1;
+        this.scaleY = 1;
+
         this.isInitialized = true;
     }
 
