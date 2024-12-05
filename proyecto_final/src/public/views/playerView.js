@@ -7,9 +7,12 @@ class playerView extends EventTarget
         //Imagen que contiene la secuencia de cuadros
         super();
        
+        this.spritesheet_right = '../images/sonic3_spritesheet_right.png';
+        this.spritesheet_left = '../images/sonic3_spritesheet_left.png';
+
         this.image = new Image();
         this.image.onload = () => {this.dispatchEvent( new CustomEvent('imgloaded'))};
-        this.image.src = '../images/sonic3_spritesheet.png';
+        this.image.src = this.spritesheet_right;
         
         //Posición (x,y) del contexto de dibujo
         this.x = 40;
@@ -41,6 +44,16 @@ class playerView extends EventTarget
         this.scaleY = 1;
 
         this.isInitialized = true;
+    }
+
+    turnLeft()
+    {
+        this.image.src = this.spritesheet_left;
+    }
+
+    turnRight()
+    {
+        this.image.src = this.spritesheet_right;
     }
 
     update( playerState )

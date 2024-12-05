@@ -15,8 +15,8 @@ class PortalView extends EventTarget
         let labyrinth1YCoords = 500;
 
         //Posición (x,y) del contexto de dibujo
-        this.x = 50;
-        this.y = -15;
+        this.x = labyrinth1XCoords;
+        this.y = labyrinth1YCoords;
         
 		this.delta_x = 20;
     	this.delta_y = 10;

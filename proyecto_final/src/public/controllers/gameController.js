@@ -32,12 +32,16 @@ class GameController {
 
         this.model.player.addEventListener("moveleft", () => {
 
+            this.view.playerView.turnLeft();
+
             if (!this.view.checkCollision(this.view.playerView.x - this.view.playerView.delta_x, this.view.playerView.y, this.view.getCurrentLabyrinth())) {
                 this.view.playerView.x -= this.view.playerView.delta_x;
             }
         });
 
         this.model.player.addEventListener("moveright", () => {
+
+            this.view.playerView.turnRight();
 
             if (!this.view.checkCollision(this.view.playerView.x + this.view.playerView.delta_x, this.view.playerView.y, this.view.getCurrentLabyrinth())) {
                 this.view.playerView.x += this.view.playerView.delta_x;
