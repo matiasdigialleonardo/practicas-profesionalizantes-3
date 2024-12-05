@@ -36,59 +36,58 @@ class GameView extends HTMLElement {
         
         this.renderView("combat");
 
-        // Laberinto 1
-        // this.rectangles = [
-        //     // Outer walls
-        //     { x: 0, y: 0, width: this.canvas.width, height: 20 },
-        //     { x: 0, y: this.canvas.height - 20, width: this.canvas.width, height: 20 },
-        //     { x: 0, y: 0, width: 20, height: this.canvas.height },
-        //     { x: this.canvas.width - 20, y: 0, width: 20, height: this.canvas.height },
+        this.labyrinths = {
+            labyrinth1: [
+                // Outer walls
+                { x: 0, y: 0, width: this.canvas.width, height: 20 },
+                { x: 0, y: this.canvas.height - 20, width: this.canvas.width, height: 20 },
+                { x: 0, y: 0, width: 20, height: this.canvas.height },
+                { x: this.canvas.width - 20, y: 0, width: 20, height: this.canvas.height },
+        
+                // Horizontal Walls
+                { x: 0, y: 150, width: this.canvas.width - 200, height: 20 },
+                { x: 210, y: 350, width: 200, height: 20 },
+                { x: 0, y: 450, width: 200, height: 20 },
+                { x: 650, y: 350, width: 1200, height: 20 },
+                { x: 200, y: 550, width: 600, height: 20 },
+                { x: 1000, y: 550, width: 600, height: 20 },
+        
+                // Vertical Walls
+                { x: 200, y: 350, width: 20, height: 200 },
+                { x: 1000, y: 350, width: 20, height: 200 },
+            ],
+            labyrinth2: [
+                // Outer walls
+                { x: 0, y: 0, width: this.canvas.width, height: 20 },
+                { x: 0, y: this.canvas.height - 20, width: this.canvas.width, height: 20 },
+                { x: 0, y: 0, width: 20, height: this.canvas.height },
+                { x: this.canvas.width - 20, y: 0, width: 20, height: this.canvas.height },
+        
+                // Horizontal Walls
+                { x: 340, y: 150, width: 1300, height: 20 },
+                { x: 340, y: 200, width: 1300, height: 20 },
+                { x: 500, y: 350, width: 400, height: 20 },
+                { x: 1200, y: 350, width: 280, height: 20 },
+                { x: 900, y: 480, width: 577, height: 20 },
+                { x: 340, y: 550, width: 210, height: 20 },
+                { x: 1050, y: 630, width: 580, height: 20 },
+        
+                // Vertical Walls
+                { x: 160, y: 0, width: 20, height: 650 },
+                { x: 340, y: 150, width: 20, height: 420 },
+                { x: 380, y: 550, width: 20, height: 650 },
+                { x: 700, y: 350, width: 20, height: 300 },
+                { x: 500, y: 550, width: 20, height: 650 },
+                { x: 900, y: 350, width: 20, height: 150 },
+                { x: 1050, y: 150, width: 20, height: 200 },
+                { x: 900, y: 500, width: 20, height: 650 },
+                { x: 1200, y: 370, width: 20, height: 130 },
+                { x: 1470, y: 350, width: 20, height: 150 },
+                { x: 1620, y: 150, width: 20, height: 500 },
+            ]
+        };
 
-        //     // Horizontal Walls
-        //     { x: 0, y: 150, width: this.canvas.width - 200, height: 20 },
-        //     { x: 210, y: 350, width: 200, height: 20 },
-        //     { x: 0, y: 450, width: 200, height: 20 },
-        //     { x: 650, y: 350, width: 1200, height: 20 },
-        //     { x: 200, y: 550, width: 600, height: 20 },
-        //     { x: 1000, y: 550, width: 600, height: 20 },
-            
-        //     // Vertical Walls
-        //     { x: 200, y: 350, width: 20, height: 200 },
-        //     { x: 1000, y: 350, width: 20, height: 200 },
-
-        // ];
-
-        // Laberinto 2
-        this.rectangles = [
-            // Outer walls
-            { x: 0, y: 0, width: this.canvas.width, height: 20 },
-            { x: 0, y: this.canvas.height - 20, width: this.canvas.width, height: 20 },
-            { x: 0, y: 0, width: 20, height: this.canvas.height },
-            { x: this.canvas.width - 20, y: 0, width: 20, height: this.canvas.height },
-
-            // Horizontal Walls
-            { x: 340, y: 150, width: 1300, height: 20 },
-            { x: 340, y: 200, width: 1300, height: 20 },
-            { x: 500, y: 350, width: 400, height: 20 },
-            { x: 1200, y: 350, width: 280, height: 20 },
-            { x: 900, y: 480, width: 577, height: 20 },
-            { x: 340, y: 550, width: 210, height: 20 },
-            { x: 1050, y: 630, width: 580, height: 20 },
-            
-            // Vertical Walls
-            { x: 160, y: 0, width: 20, height: 650 },
-            { x: 340, y: 150, width: 20, height: 420 },
-            { x: 380, y: 550, width: 20, height: 650 },
-            { x: 700, y: 350, width: 20, height: 300 },
-            { x: 500, y: 550, width: 20, height: 650 },
-            { x: 900, y: 350, width: 20, height: 150 },
-            { x: 1050, y: 150, width: 20, height: 200 },
-            { x: 900, y: 500, width: 20, height: 650 },
-            { x: 1200, y: 370, width: 20, height: 130 },
-            { x: 1470, y: 350, width: 20, height: 150 },
-            { x: 1620, y: 150, width: 20, height: 500 },
-
-        ];
+        this.currentLabyrinth = 'labyrinth1';
 
         this.update();
 
@@ -125,17 +124,32 @@ class GameView extends HTMLElement {
         }
     }
 
-    drawRectangles(drawingContext)
+    getCurrentLabyrinth()
     {
-        this.rectangles.forEach(rect => {
+        return this.labyrinths[this.currentLabyrinth];
+    }
+
+    drawLabyrinth(drawingContext, labyrinth)
+    {
+        labyrinth.forEach(rect => {
             drawingContext.fillStyle = 'black';
             drawingContext.fillRect(rect.x, rect.y, rect.width, rect.height);
         });
     }
 
-    checkCollision(x, y) {
-        for (let i = 0; i < this.rectangles.length; i++) {
-            const wall = this.rectangles[i];
+    switchLabyrinth(labyrinthName)
+    {
+        if (this.labyrinths[labyrinthName]) 
+        {
+            this.currentLabyrinth = labyrinthName;
+            this.portalView.x = 700;
+            this.portalView.y = 500;
+        }
+    }
+
+    checkCollision(x, y, labyrinth) {
+        for (let i = 0; i < labyrinth.length; i++) {
+            const wall = labyrinth[i];
             if (
                 x < wall.x + wall.width &&
                 x + this.playerView.width > wall.x &&
@@ -216,7 +230,7 @@ class GameView extends HTMLElement {
         for (let object of this.renderObjects)
         {
             this.render(this.context, object);
-            this.drawRectangles(this.context);
+            this.drawLabyrinth(this.context, this.getCurrentLabyrinth());
             
         }
         requestAnimationFrame(() => this.update());  
