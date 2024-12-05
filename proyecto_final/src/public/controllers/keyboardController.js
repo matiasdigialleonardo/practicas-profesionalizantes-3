@@ -24,10 +24,22 @@ class KeyboardController
 	onkeydown(event)
 	{
 		console.log('keypress:' + this.keyCode);
-		if (this.key && this.keyCode == 37) {this.model.player.moveLeft(); };
-	    if (this.key && this.keyCode == 39) {this.model.player.moveRight(); };
-	    if (this.key && this.keyCode == 38) {this.model.player.moveUp(); };
-	    if (this.key && this.keyCode == 40) {this.model.player.moveDown(); };
+		if (this.key && this.keyCode == 37) {
+			this.model.player.moveLeft();
+			this.model.player.hasMoved();
+		}
+		if (this.key && this.keyCode == 39) {
+			this.model.player.moveRight();
+			this.model.player.hasMoved();
+		}
+		if (this.key && this.keyCode == 38) {
+			this.model.player.moveUp();
+			this.model.player.hasMoved();
+		}
+		if (this.key && this.keyCode == 40) {
+			this.model.player.moveDown();
+			this.model.player.hasMoved();
+		}
 	}
 }
 

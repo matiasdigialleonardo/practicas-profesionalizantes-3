@@ -31,7 +31,6 @@ class GameController {
         })
 
         this.model.player.addEventListener("moveleft", () => {
-            //this.view.playerView.x -= this.view.playerView.delta_x;
 
             if (!this.view.checkCollision(this.view.playerView.x - this.view.playerView.delta_x, this.view.playerView.y)) {
                 this.view.playerView.x -= this.view.playerView.delta_x;
@@ -39,7 +38,6 @@ class GameController {
         });
 
         this.model.player.addEventListener("moveright", () => {
-            // this.view.playerView.x += this.view.playerView.delta_x;
 
             if (!this.view.checkCollision(this.view.playerView.x + this.view.playerView.delta_x, this.view.playerView.y)) {
                 this.view.playerView.x += this.view.playerView.delta_x;
@@ -47,7 +45,6 @@ class GameController {
         });
 
         this.model.player.addEventListener("moveup", () => {
-            // this.view.playerView.y -= this.view.playerView.delta_y;
 
             if (!this.view.checkCollision(this.view.playerView.x, this.view.playerView.y - this.view.playerView.delta_y)) {
                 this.view.playerView.y -= this.view.playerView.delta_y;
@@ -55,10 +52,16 @@ class GameController {
         });
 
         this.model.player.addEventListener("movedown", () => {
-            // this.view.playerView.y += this.view.playerView.delta_y;
 
             if (!this.view.checkCollision(this.view.playerView.x, this.view.playerView.y + this.view.playerView.delta_y)) {
                 this.view.playerView.y += this.view.playerView.delta_y;
+            }
+        });
+
+        this.model.player.addEventListener("hasMoved", () => {
+
+            if (this.view.checkPlayerEnteredPortal(this.view.playerView, this.view.portalView)) {
+                alert("Oh shit")
             }
         });
 

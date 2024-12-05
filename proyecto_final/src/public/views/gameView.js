@@ -25,7 +25,7 @@ class GameView extends HTMLElement {
         this.playerView = new playerView();
         this.portalView = new PortalView();
 
-        this.renderObjects = [this.playerView, this.portalView];
+        this.renderObjects = [this.portalView, this.playerView];
 
         this.canvas = document.createElement("canvas");
         this.context = this.canvas.getContext("2d");
@@ -146,6 +146,36 @@ class GameView extends HTMLElement {
             }
         }
         return false; // No collision
+    }
+
+    checkPlayerEnteredPortal(player, portal) {
+        // Calculate the center position of the player image.
+        const playerCenterX = player.x + player.width / 2;
+        const playerCenterY = player.y + player.height / 2;
+
+        console.log( "player center x :" + playerCenterX);
+
+        // Calculate the center position of the portal image taking into account its scaleX and scaleY otherwise
+        // the trigger will go before the player visually enters the portal
+        const portalScaledWidth = portal.width * portal.scaleX;
+        const portalScaledHeight = portal.height * portal.scaleY;
+        const portalCenterX = portal.x + portalScaledWidth / 2;
+        const portalCenterY = portal.y + portalScaledHeight / 2;
+
+        console.log("Portal x" + portalCenterX);
+
+        const threshold = 10;
+
+        // The threshold allows for the check to be off the center of the objects in case they dont exactly match
+        if (
+            Math.abs(playerCenterX - portalCenterX) <= threshold &&
+            Math.abs(playerCenterY - portalCenterY) <= threshold
+        ) {
+            return true;
+        }
+
+        return false;
+
     }
 
     // Render should be a private method, it should not be called by the controller.

@@ -12,8 +12,8 @@ class PortalView extends EventTarget
         this.image.src = '../images/portal.png';
         
         //Posición (x,y) del contexto de dibujo
-        this.x = 750;
-        this.y = 400;
+        this.x = 30;
+        this.y = 200;
         
 		this.delta_x = 20;
     	this.delta_y = 10;

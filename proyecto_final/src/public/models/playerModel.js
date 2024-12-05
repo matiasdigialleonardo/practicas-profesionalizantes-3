@@ -26,6 +26,11 @@ class PlayerModel extends EventTarget
         this.innerState = 'idle';
     }
 
+    hasMoved()
+    {
+        this.dispatchEvent( new CustomEvent('hasMoved'));
+    }
+
     moveLeft()
     {
         this.dispatchEvent( new CustomEvent('moveleft') );
