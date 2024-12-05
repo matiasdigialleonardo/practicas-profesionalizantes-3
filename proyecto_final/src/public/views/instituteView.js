@@ -1,4 +1,4 @@
-class PortalView extends EventTarget
+class InstituteView extends EventTarget
 {
     //Aca agarramos el evento de que se presiono una tecla y sacamos otro evento para moverlo.
 
@@ -9,24 +9,24 @@ class PortalView extends EventTarget
        
         this.image = new Image();
         this.image.onload = () => {this.dispatchEvent( new CustomEvent('imgloaded'))};
-        this.image.src = '../images/portal.png';
+        this.image.src = '../images/institute.png';
         
-        let labyrinth1XCoords = 50;
-        let labyrinth1YCoords = 500;
+        this.labyrinth2XCoords = 720;
+        this.labyrinth2YCoords = 390;
 
         //Posición (x,y) del contexto de dibujo
-        this.x = 50;
-        this.y = -15;
+        this.x = 30000;
+        this.y = 200;
         
 		this.delta_x = 20;
     	this.delta_y = 10;
 
         //Tamaño del cuadro (ancho, alto)
-        this.width = 230; 
+        this.width = 460; 
         this.height = 500;
         
         //Cantidad de cuadros en una fila
-        this.frames = 4; 
+        this.frames = 0; 
         
         //Cuadro actual
         this.frameIndex = 0; 
@@ -35,17 +35,17 @@ class PortalView extends EventTarget
         this.row = 0; 
         
         //Velocidad de la animación
-        this.ticksPerFrame = 50; 
+        this.ticksPerFrame = 0; 
         
         //Tiempo transcurrido
-        this.tickCount = 0;
+        //this.tickCount = 0;
 
-        this.scaleX = 0.5
-        this.scaleY = 0.5
+        this.scaleX = 0.4
+        this.scaleY = 0.4
 
         this.isInitialized = true;
     }
 }
 
 
-export { PortalView };
+export { InstituteView };

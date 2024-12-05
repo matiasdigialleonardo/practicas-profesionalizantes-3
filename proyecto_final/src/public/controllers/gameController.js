@@ -63,6 +63,10 @@ class GameController {
             if (this.view.checkPlayerEnteredPortal(this.view.playerView, this.view.portalView)) {
                 this.view.switchLabyrinth('labyrinth2');
             }
+
+            if (this.view.checkPlayerEnteredPortal(this.view.playerView, this.view.instituteView)) {
+                this.view.renderView('gameWon');
+            }
         });
 
         document.body.appendChild(this.view);

@@ -2,7 +2,9 @@ import { LoginView } from './loginView.js'
 import { LobbyView } from './lobbyView.js'
 import { CombatView } from './combatView.js'
 import { playerView } from './playerView.js'
+import { GameWonView } from './gameWonView.js'
 import { PortalView } from './portalView.js'
+import { InstituteView } from './instituteView.js'
 
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
@@ -21,11 +23,13 @@ class GameView extends HTMLElement {
         this.lobbyView.addEventListener("combatStarted", () => {
             renderView("combat");
         })
+        this.gameWonView = new GameWonView();
 
         this.playerView = new playerView();
         this.portalView = new PortalView();
+        this.instituteView = new InstituteView();
 
-        this.renderObjects = [this.portalView, this.playerView];
+        this.renderObjects = [this.portalView, this.instituteView, this.playerView];
 
         this.canvas = document.createElement("canvas");
         this.context = this.canvas.getContext("2d");
@@ -103,6 +107,8 @@ class GameView extends HTMLElement {
                 return this.combatView;
             case 'player':
                 return this.playerView;
+            case 'gameWon':
+                return this.gameWonView;
         }
     }
 
@@ -120,6 +126,9 @@ class GameView extends HTMLElement {
                 let combatView = new CombatView();
                 this.appendChild(combatView);
                 combatView.append(this.canvas);
+                break;
+            case 'gameWon':
+                this.appendChild(this.gameWonView);
                 break;
         }
     }
@@ -142,8 +151,11 @@ class GameView extends HTMLElement {
         if (this.labyrinths[labyrinthName]) 
         {
             this.currentLabyrinth = labyrinthName;
-            this.portalView.x = 700;
-            this.portalView.y = 500;
+            this.portalView.x = 7000;
+            this.portalView.y = 5000;
+
+            this.instituteView.x = this.instituteView.labyrinth2XCoords;
+            this.instituteView.y = this.instituteView.labyrinth2YCoords;
         }
     }
 
@@ -163,6 +175,7 @@ class GameView extends HTMLElement {
     }
 
     checkPlayerEnteredPortal(player, portal) {
+
         // Calculate the center position of the player image.
         const playerCenterX = player.x + player.width / 2;
         const playerCenterY = player.y + player.height / 2;
@@ -178,7 +191,7 @@ class GameView extends HTMLElement {
 
         console.log("Portal x" + portalCenterX);
 
-        const threshold = 10;
+        const threshold = 30;
 
         // The threshold allows for the check to be off the center of the objects in case they dont exactly match
         if (
