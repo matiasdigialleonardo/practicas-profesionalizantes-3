@@ -35,25 +35,21 @@ class PlayerModel extends EventTarget
 
     moveLeft()
     {
-        this.isMoving = true;
         this.dispatchEvent( new CustomEvent('moveleft') );
     }
 
     moveRight()
     {
-        this.isMoving = true;
         this.dispatchEvent( new CustomEvent('moveright') );
     }
 
     moveUp()
     {
-        this.isMoving = true;
         this.dispatchEvent( new CustomEvent('moveup') );
     }
 
     moveDown()
     {
-        this.isMoving = true;
         this.dispatchEvent( new CustomEvent('movedown') );
     }
 
