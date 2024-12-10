@@ -34,7 +34,6 @@ class GameView extends HTMLElement {
         this.canvas = document.createElement("canvas");
         this.context = this.canvas.getContext("2d");
 
-        this.canvas.style = "border:1px solid black";
         this.canvas.width = 1800;
         this.canvas.height = 800;
         
@@ -141,13 +140,16 @@ class GameView extends HTMLElement {
     drawLabyrinth(drawingContext, labyrinth)
     {
         labyrinth.forEach(rect => {
-            drawingContext.fillStyle = 'black';
+            drawingContext.fillStyle = 'green';
             drawingContext.fillRect(rect.x, rect.y, rect.width, rect.height);
         });
     }
 
     switchLabyrinth(labyrinthName)
     {
+        this.playerView.x = 40;
+        this.playerView.y = 20;
+
         if (this.labyrinths[labyrinthName]) 
         {
             this.currentLabyrinth = labyrinthName;
@@ -246,7 +248,7 @@ class GameView extends HTMLElement {
             this.drawLabyrinth(this.context, this.getCurrentLabyrinth());
             
         }
-        requestAnimationFrame(() => this.update());  
+        // requestAnimationFrame(() => this.update());  
     }
 }
 

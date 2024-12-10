@@ -80,11 +80,17 @@ class GameController {
 
     }
 
+    gameloop()
+    {
+        this.keyboardController.processKeys();
+        this.view.update();
+        requestAnimationFrame(() => this.gameloop());
+    }
+
     start() {
+        
+        requestAnimationFrame(() => this.gameloop());  
 
-        requestAnimationFrame(() => this.view.update());  
-
-        console.log("Im starting...")
     }
 
     /* stop() */

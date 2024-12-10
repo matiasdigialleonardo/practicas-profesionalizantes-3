@@ -18,8 +18,8 @@ class playerView extends EventTarget
         this.x = 40;
         this.y = 20;
         
-		this.delta_x = 20;
-    	this.delta_y = 10;
+		this.delta_x = 5;
+    	this.delta_y = 5;
 
         //Tamaño del cuadro (ancho, alto)
         this.width = 114; 
@@ -35,7 +35,7 @@ class playerView extends EventTarget
         this.row = 1; 
         
         //Velocidad de la animación
-        this.ticksPerFrame = 30; 
+        this.ticksPerFrame = 20; 
         
         //Tiempo transcurrido
         this.tickCount = 0;
