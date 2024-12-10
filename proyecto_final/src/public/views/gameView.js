@@ -137,10 +137,14 @@ class GameView extends HTMLElement {
         return this.labyrinths[this.currentLabyrinth];
     }
 
-    drawLabyrinth(drawingContext, labyrinth)
-    {
+    drawLabyrinth(drawingContext, labyrinth) {
+
+        const grassImage = new Image();
+        grassImage.src = '../images/grass_texture.png';
+
+        const grassPattern = drawingContext.createPattern(grassImage, 'repeat');
         labyrinth.forEach(rect => {
-            drawingContext.fillStyle = 'green';
+            drawingContext.fillStyle = grassPattern;
             drawingContext.fillRect(rect.x, rect.y, rect.width, rect.height);
         });
     }
