@@ -37,32 +37,6 @@ class GameController {
             if (!this.view.checkCollision(this.view.playerView.x - this.view.playerView.delta_x, this.view.playerView.y, this.view.getCurrentLabyrinth())) {
                 this.view.playerView.x -= this.view.playerView.delta_x;
             }
-        });
-
-        this.model.player.addEventListener("moveright", () => {
-
-            this.view.playerView.turnRight();
-
-            if (!this.view.checkCollision(this.view.playerView.x + this.view.playerView.delta_x, this.view.playerView.y, this.view.getCurrentLabyrinth())) {
-                this.view.playerView.x += this.view.playerView.delta_x;
-            }
-        });
-
-        this.model.player.addEventListener("moveup", () => {
-
-            if (!this.view.checkCollision(this.view.playerView.x, this.view.playerView.y - this.view.playerView.delta_y, this.view.getCurrentLabyrinth())) {
-                this.view.playerView.y -= this.view.playerView.delta_y;
-            }
-        });
-
-        this.model.player.addEventListener("movedown", () => {
-
-            if (!this.view.checkCollision(this.view.playerView.x, this.view.playerView.y + this.view.playerView.delta_y, this.view.getCurrentLabyrinth())) {
-                this.view.playerView.y += this.view.playerView.delta_y;
-            }
-        });
-
-        this.model.player.addEventListener("hasMoved", () => {
 
             if (this.view.checkPlayerEnteredPortal(this.view.playerView, this.view.portalView)) {
                 this.view.switchLabyrinth('labyrinth2');
@@ -73,16 +47,81 @@ class GameController {
             }
         });
 
-        document.body.appendChild(this.view);
+        this.model.player.addEventListener("moveright", () => {
+
+            this.view.playerView.turnRight();
+
+            if (!this.view.checkCollision(this.view.playerView.x + this.view.playerView.delta_x, this.view.playerView.y, this.view.getCurrentLabyrinth())) {
+                this.view.playerView.x += this.view.playerView.delta_x;
+            }
+
+            if (this.view.checkPlayerEnteredPortal(this.view.playerView, this.view.portalView)) {
+                this.view.switchLabyrinth('labyrinth2');
+            }
+
+            if (this.view.checkPlayerEnteredPortal(this.view.playerView, this.view.instituteView)) {
+                this.view.renderView('gameWon');
+            }
+        });
+
+        this.model.player.addEventListener("moveup", () => {
+
+            if (!this.view.checkCollision(this.view.playerView.x, this.view.playerView.y - this.view.playerView.delta_y, this.view.getCurrentLabyrinth())) {
+                this.view.playerView.y -= this.view.playerView.delta_y;
+            }
+
+            if (this.view.checkPlayerEnteredPortal(this.view.playerView, this.view.portalView)) {
+                this.view.switchLabyrinth('labyrinth2');
+            }
+
+            if (this.view.checkPlayerEnteredPortal(this.view.playerView, this.view.instituteView)) {
+                this.view.renderView('gameWon');
+            }
+        });
+
+        this.model.player.addEventListener("movedown", () => {
+
+            if (!this.view.checkCollision(this.view.playerView.x, this.view.playerView.y + this.view.playerView.delta_y, this.view.getCurrentLabyrinth())) {
+                this.view.playerView.y += this.view.playerView.delta_y;
+            }
+
+            if (this.view.checkPlayerEnteredPortal(this.view.playerView, this.view.portalView)) {
+                this.view.switchLabyrinth('labyrinth2');
+            }
+
+            if (this.view.checkPlayerEnteredPortal(this.view.playerView, this.view.instituteView)) {
+                this.view.renderView('gameWon');
+            }
+        });
+
+        // this.model.player.addEventListener("hasMoved", () => {
+
+        //     if (this.view.checkPlayerEnteredPortal(this.view.playerView, this.view.portalView)) {
+        //         this.view.switchLabyrinth('labyrinth2');
+        //     }
+
+        //     if (this.view.checkPlayerEnteredPortal(this.view.playerView, this.view.instituteView)) {
+        //         this.view.renderView('gameWon');
+        //     }
+        // });
 
         // Consultar al modelo el estado inicial del jugador
         // this.playerController.askForPlayerState();
+        
 
+        document.body.appendChild(this.view);
+
+    }
+
+    updatePlayerState()
+    {
+        this.view.playerView.update(this.model.player.getCurrentState());
     }
 
     gameloop()
     {
         this.keyboardController.processKeys();
+        this.updatePlayerState();
         this.view.update();
         requestAnimationFrame(() => this.gameloop());
     }

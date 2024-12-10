@@ -64,15 +64,13 @@ class playerView extends EventTarget
             if ( playerState == 'idle')
             {
                 this.frames = 9;
-                this.frameIndex = 0;
                 this.row = 0;
-                this.ticksPerFrame = 12;
+                this.ticksPerFrame = 25;
             }
 
             if ( playerState == 'walking')
             {
                 this.frames = 8;
-                this.frameIndex = 0;
                 this.row = 1;
                 this.ticksPerFrame = 30;
             }
@@ -80,7 +78,6 @@ class playerView extends EventTarget
             if ( playerState == 'running')
             {
                 this.frames = 4;
-                this.frameIndex = 0;
                 this.row = 2;
                 this.ticksPerFrame = 2;
             }

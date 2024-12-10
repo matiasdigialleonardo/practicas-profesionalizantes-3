@@ -38,11 +38,24 @@ class KeyboardController
         if (this.keyState.hasOwnProperty(event.key)) {
             this.keyState[event.key] = true;
         }
+
+		this.updatePlayerState();
     }
 
     onKeyUp(event) {
         if (this.keyState.hasOwnProperty(event.key)) {
             this.keyState[event.key] = false;
+        }
+
+		this.updatePlayerState();
+    }
+
+    updatePlayerState() {
+        if (this.keyState['ArrowLeft'] || this.keyState['ArrowRight'] ||
+            this.keyState['ArrowUp'] || this.keyState['ArrowDown']) {
+            this.model.player.walk();
+        } else {
+            this.model.player.idle();
         }
     }
 
@@ -60,27 +73,6 @@ class KeyboardController
             this.model.player.moveDown();
         }
     }
-
-	// onkeydown(event)
-	// {
-	// 	console.log('keypress:' + this.keyCode);
-	// 	if (this.key && this.keyCode == 37) {
-	// 		this.model.player.moveLeft();
-	// 		this.model.player.hasMoved();
-	// 	}
-	// 	if (this.key && this.keyCode == 39) {
-	// 		this.model.player.moveRight();
-	// 		this.model.player.hasMoved();
-	// 	}
-	// 	if (this.key && this.keyCode == 38) {
-	// 		this.model.player.moveUp();
-	// 		this.model.player.hasMoved();
-	// 	}
-	// 	if (this.key && this.keyCode == 40) {
-	// 		this.model.player.moveDown();
-	// 		this.model.player.hasMoved();
-	// 	}
-	// }
 }
 
 export { KeyboardController };
