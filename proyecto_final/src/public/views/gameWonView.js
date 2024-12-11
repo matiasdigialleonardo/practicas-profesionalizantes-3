@@ -6,7 +6,7 @@ export class GameWonView extends HTMLElement {
         gameWonContainer.classList.add('gameWonContainer');
 
         const message = document.createElement('div');
-        message.textContent = '¡Has llegado al final! Gracias por jugar. \n Este projecto fue realizado por los estudiantes Di Gialleoanrdo Matias y Vaggi Kevin, para la materia Practicas Profesionalizantes 3, de la carrera Analista en Sistemas, dada en el Instituto Superior de Formacion Tecnica Nro. 151.\n Nos gustaria utilizar esta seccion para, ademas, comentar algunas mejores deseariamos realizar al juego, estas siendo las siguientes: ';
+        message.textContent = '¡Has llegado al final! Gracias por jugar. \n Este projecto fue realizado por los estudiantes Di Gialleonardo Matias y Vaggi Kevin, para la materia Practicas Profesionalizantes 3, de la carrera Analista en Sistemas, dada en el Instituto Superior de Formacion Tecnica Nro. 151.\n Nos gustaria utilizar esta seccion para, ademas, comentar algunas mejores deseariamos realizar al juego, estas siendo las siguientes: ';
         
         message.classList.add('textDisplay');
 
