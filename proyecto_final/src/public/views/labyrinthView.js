@@ -1,4 +1,4 @@
-export class CombatView extends HTMLElement {
+export class LabyrinthView extends HTMLElement {
     constructor() {
         super();
 
@@ -25,4 +25,4 @@ export class CombatView extends HTMLElement {
     }
 }
 
-customElements.define('x-app-combatview', CombatView);
+customElements.define('x-app-labyrinthview', LabyrinthView);

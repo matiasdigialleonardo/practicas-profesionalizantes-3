@@ -1,6 +1,6 @@
 import { LoginView } from './loginView.js'
 import { LobbyView } from './lobbyView.js'
-import { CombatView } from './combatView.js'
+import { LabyrinthView } from './labyrinthView.js'
 import { playerView } from './playerView.js'
 import { GameWonView } from './gameWonView.js'
 import { PortalView } from './portalView.js'
@@ -21,7 +21,7 @@ class GameView extends HTMLElement {
         this.loginView = new LoginView();
         this.lobbyView = new LobbyView();
         this.lobbyView.addEventListener("combatStarted", () => {
-            renderView("combat");
+            renderView("labyrinth");
         })
         this.gameWonView = new GameWonView();
 
@@ -37,7 +37,7 @@ class GameView extends HTMLElement {
         this.canvas.width = 1800;
         this.canvas.height = 800;
         
-        this.renderView("combat");
+        this.renderView("labyrinth");
 
         this.labyrinths = {
             labyrinth1: [
@@ -102,8 +102,8 @@ class GameView extends HTMLElement {
                 return this.loginView;
             case 'lobby':
                 return this.lobbyView;
-            case 'combat':
-                return this.combatView;
+            case 'labyrinth':
+                return this.labyrinthView;
             case 'player':
                 return this.playerView;
             case 'gameWon':
@@ -121,10 +121,10 @@ class GameView extends HTMLElement {
             case 'lobby':
                 this.appendChild(this.lobbyView);
                 break;
-            case 'combat':
-                let combatView = new CombatView();
-                this.appendChild(combatView);
-                combatView.append(this.canvas);
+            case 'labyrinth':
+                let labyrinthView = new LabyrinthView();
+                this.appendChild(labyrinthView);
+                labyrinthView.append(this.canvas);
                 break;
             case 'gameWon':
                 this.appendChild(this.gameWonView);

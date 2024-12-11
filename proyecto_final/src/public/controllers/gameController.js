@@ -1,6 +1,6 @@
 import { LoginController } from './loginController.js'
 import { LobbyController } from './lobbyController.js'
-import { CombatController } from './combatController.js'
+import { LabyrinthController } from './labyrinthController.js'
 import { KeyboardController } from './keyboardController.js'
 
 /*
@@ -14,7 +14,7 @@ class GameController {
         this.model = model;
         this.loginController = new LoginController(view.getViewMyName("login"), model);
         this.lobbyController = new LobbyController(view.getViewMyName("lobby"), model);
-        this.combatController = new CombatController(view.getViewMyName("combat"), model);
+        this.labyrinthController = new LabyrinthController(view.getViewMyName("labyrinth"), model);
         this.keyboardController = new KeyboardController(view.getViewMyName("player"), model);
 
         this.loginController.init();
@@ -27,7 +27,7 @@ class GameController {
         })
 
         this.model.addEventListener("Player ready", () => {
-            this.view.renderView("combat");
+            this.view.renderView("labyrinth");
         })
 
         this.model.player.addEventListener("moveleft", () => {

@@ -1,4 +1,4 @@
-class CombatController
+class LabyrinthController
 {
     constructor(view, model)
     {
@@ -13,4 +13,4 @@ class CombatController
 	}
 }
 
-export { CombatController };
+export { LabyrinthController };
