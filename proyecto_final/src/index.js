@@ -10,8 +10,8 @@ const users =
 [
     {
         id: 1,
-        username: 'a',
-        password: 'a',
+        username: 'usuario',
+        password: 'contraseña',
     },
     {
         id: 2,
