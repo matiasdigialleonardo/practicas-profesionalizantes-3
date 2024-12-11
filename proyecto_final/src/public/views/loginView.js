@@ -2,6 +2,22 @@ export class LoginView extends HTMLElement {
 	constructor() {
 		super();
 
+		this.outerContainer = document.createElement("div");
+		this.outerContainer.classList.add("outer-container");
+		
+		this.pageTitle = document.createElement("div");
+		this.pageTitle.classList.add("page-title");
+		this.pageTitle.innerText = "Juego de laberinto";
+
+
+		this.formTitle = document.createElement("h2");
+		this.formTitle.classList.add("form-title");
+		this.formTitle.innerText = "Ingrese sus credenciales";
+
+		this.container = document.createElement("div");
+		this.container.classList.add("form-container");
+
+		
 		this.usernameInput = document.createElement("input");
 		this.passwordInput = document.createElement("input");
 		this._loginBtn = document.createElement("button");
@@ -10,11 +26,15 @@ export class LoginView extends HTMLElement {
 		this.usernameInput.value = "a";
 		this.passwordInput.value = "a";
 
-		this.appendChild(this.usernameInput)
-		this.appendChild(this.passwordInput)
-		this.appendChild(this._loginBtn)
+		this.outerContainer.appendChild(this.pageTitle);
+		this.outerContainer.appendChild(this.container);
 
+		this.container.appendChild(this.formTitle);
+		this.container.appendChild(this.usernameInput);
+		this.container.appendChild(this.passwordInput);
+		this.container.appendChild(this._loginBtn);
 
+		this.appendChild(this.outerContainer);
 	}
 
 	connectedCallback() {

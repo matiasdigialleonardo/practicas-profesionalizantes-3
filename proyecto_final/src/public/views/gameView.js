@@ -42,9 +42,6 @@ class GameView extends HTMLElement {
         this.canvas.style.transform = "translate(-50%, -50%)";
         this.canvas.style.background = "linear-gradient(to bottom, #90EE90, #66C266)";
 
-        
-        this.renderView("labyrinth");
-
         this.labyrinths = {
             labyrinth1: [
                 // Outer walls
@@ -97,6 +94,8 @@ class GameView extends HTMLElement {
         };
 
         this.currentLabyrinth = 'labyrinth1';
+
+        this.renderView("login");
 
         this.update();
 
