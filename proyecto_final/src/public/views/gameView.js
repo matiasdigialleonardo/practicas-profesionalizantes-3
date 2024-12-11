@@ -33,9 +33,15 @@ class GameView extends HTMLElement {
 
         this.canvas = document.createElement("canvas");
         this.context = this.canvas.getContext("2d");
-
         this.canvas.width = 1800;
         this.canvas.height = 800;
+
+        this.canvas.style.position = "absolute";
+        this.canvas.style.top = "50%";
+        this.canvas.style.left = "50%";
+        this.canvas.style.transform = "translate(-50%, -50%)";
+        this.canvas.style.background = "linear-gradient(to bottom, #90EE90, #66C266)";
+
         
         this.renderView("labyrinth");
 

@@ -18,8 +18,8 @@ class playerView extends EventTarget
         this.x = 40;
         this.y = 20;
         
-		this.delta_x = 5;
-    	this.delta_y = 5;
+		this.delta_x = 4;
+    	this.delta_y = 4;
 
         //Tamaño del cuadro (ancho, alto)
         this.width = 114; 
@@ -63,7 +63,7 @@ class playerView extends EventTarget
             console.log(playerState);
             if ( playerState == 'idle')
             {
-                this.frames = 9;
+                this.frames = 8;
                 this.row = 0;
                 this.ticksPerFrame = 25;
             }
