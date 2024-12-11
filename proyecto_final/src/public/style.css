@@ -93,15 +93,73 @@ button:hover {
 
 
 .startBtnContainer {
-    font-size: 1.5em;
+    text-align: center;
+    margin-top: 20px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 80vh;
+  }
+
+.textDisplay {
+    width: 80%;
+    min-height: 150px;
+    padding: 20px;
+    font-size: 30px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    color: white;
+    white-space: pre-line;
 }
 
 .startBtn {
-    font-size: 1.5em;
-    padding: 10px 20px;
+    background-color: #199b9a;
+    color: white;
+    font-size: 40px;
+    padding: 15px 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 200px; /* Make button fill the container */
+    box-sizing: border-box;
+}
+  
+.startBtn:hover {
+    background-color: #17a39d; /* Change button color on hover */
 }
 
+.gameWonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.isft151Logo {
+    display: block;
+    transform: scale(1.5);
+    transform-origin: center;
+    margin: 0 auto 100px;
+    max-width: 100%;
+    max-height: 300px;
+}
+
+.gameWonbulletList {
+    list-style-type: disc;
+    color: white;
+    font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    height: auto;
+    align-items: flex-start;
+}
+
+.gameWonbulletList li {
+    font-size: 30px;
+    margin-bottom: 10px;
+    list-style-position: inside
+}
